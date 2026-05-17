@@ -9,7 +9,7 @@
            WEBCRAFT HUB — DESIGN SYSTEM
            ============================================ */
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-        
+
         :root {
             --bg-void: #050505;
             --bg-surface: #0a0a0f;
@@ -18,18 +18,18 @@
             --text-primary: #f0f0f5;
             --text-secondary: #8b8b9e;
             --text-muted: #5a5a6e;
-            
+
             --html-orange: #e34c26;
             --html-glow: rgba(227, 76, 38, 0.3);
             --css-blue: #264de4;
             --css-glow: rgba(38, 77, 228, 0.3);
             --js-yellow: #f7df1e;
             --js-glow: rgba(247, 223, 30, 0.25);
-            
+
             --grad-html: linear-gradient(135deg, #e34c26 0%, #f06529 100%);
             --grad-css: linear-gradient(135deg, #264de4 0%, #2965f1 50%, #00d4ff 100%);
             --grad-js: linear-gradient(135deg, #f7df1e 0%, #f0db4f 50%, #ff9d00 100%);
-            
+
             --border-subtle: rgba(255,255,255,0.06);
             --shadow-sm: 0 4px 12px rgba(0,0,0,0.3);
             --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
@@ -57,7 +57,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         html {
             scroll-behavior: smooth;
             font-size: 16px;
@@ -216,6 +216,7 @@
             transition: var(--transition);
             position: relative;
             padding: 0.5rem 0;
+            cursor: pointer;
         }
 
         .nav-link::after {
@@ -1005,6 +1006,7 @@
             transition: var(--transition);
             text-decoration: none;
             color: var(--text-primary);
+            cursor: pointer;
         }
 
         .dev-contact-item:hover {
@@ -1097,6 +1099,7 @@
             font-weight: 700;
             font-size: 0.9rem;
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .footer-link:hover {
@@ -1134,6 +1137,82 @@
             transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
+
+        /* ============================================
+           MODAL / COMING SOON OVERLAY
+           ============================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .modal-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            padding: 0.75rem 2rem;
+            background: var(--grad-css);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--css-glow);
+        }
     </style>
 <base target="_blank">
 </head>
@@ -1143,20 +1222,30 @@
     <div class="bg-grid"></div>
     <div class="toast" id="toast"></div>
 
+    <!-- Modal for Coming Soon -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-icon">🚧</div>
+            <div class="modal-title">قريباً!</div>
+            <div class="modal-desc">هذا المحتوى قيد التطوير حالياً. سيتوفر قريباً مع محتوى تعليمي متكامل.</div>
+            <button class="modal-btn" onclick="closeModal()">حسناً</button>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-inner">
-            <div class="nav-brand" onclick="window.scrollTo(0,0)">
+            <div class="nav-brand" onclick="window.scrollTo({top:0,behavior:'smooth'})">
                 <div class="nav-brand-icon">🌐</div>
                 <span>WebCraft Hub</span>
             </div>
-            
-            <div class="nav-links">
-                <a href="#roadmap" class="nav-link">خريطة الطريق</a>
-                <a href="#tracks" class="nav-link">المسارات</a>
-                <a href="#developer" class="nav-link">المطور</a>
+
+            <div class="nav-links" id="navLinks">
+                <a onclick="scrollToSection('roadmap')" class="nav-link">خريطة الطريق</a>
+                <a onclick="scrollToSection('tracks')" class="nav-link">المسارات</a>
+                <a onclick="scrollToSection('developer')" class="nav-link">المطور</a>
             </div>
-            
+
             <div class="nav-actions">
                 <button class="icon-btn" onclick="toggleTheme()" title="تبديل الوضع">🌓</button>
                 <button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()" title="القائمة">☰</button>
@@ -1180,7 +1269,7 @@
                 <span class="hero-badge-dot"></span>
                 <span>منصة تعليمية متكاملة</span>
             </div>
-            
+
             <h1 class="hero-title">
                 <span class="hero-title-line1">ابنِ مستقبلك في</span>
                 <span class="hero-title-line2">
@@ -1191,30 +1280,30 @@
                     <span class="hero-title-js">JS</span>
                 </span>
             </h1>
-            
+
             <p class="hero-desc">
                 رحلة واحدة متكاملة من الصفر إلى الاحتراف. تعلم كيف تبني مواقع ويب 
                 تفاعلية واحترافية باستخدام أقوى ثلاث تقنيات في عالم الويب.
             </p>
-            
+
             <div class="hero-cta-group">
-                <a href="#tracks" class="btn btn-primary">
+                <button class="btn btn-primary" onclick="scrollToSection('tracks')">
                     <span>🚀</span>
                     <span>ابدأ الرحلة الآن</span>
-                </a>
-                <a href="#roadmap" class="btn btn-secondary">
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToSection('roadmap')">
                     <span>🗺️</span>
                     <span>استكشف الخريطة</span>
-                </a>
+                </button>
             </div>
         </div>
 
-        <a href="#roadmap" class="hero-scroll">
+        <div class="hero-scroll" onclick="scrollToSection('roadmap')">
             <span>اسحب للأسفل</span>
             <div class="scroll-mouse">
                 <div class="scroll-wheel"></div>
             </div>
-        </a>
+        </div>
     </section>
 
     <!-- Roadmap Section -->
@@ -1229,7 +1318,7 @@
 
         <div class="roadmap-path">
             <div class="roadmap-line"></div>
-            
+
             <div class="roadmap-step anim-fadeInUp anim-delay-1">
                 <div class="step-node html">📝</div>
                 <div class="step-content">
@@ -1289,7 +1378,7 @@
                     <div class="track-name">HTML</div>
                     <div class="track-role">هيكلة وتأسيس</div>
                 </div>
-                
+
                 <div class="track-body">
                     <ul class="track-features">
                         <li>الهيكل الأساسي للصفحة</li>
@@ -1299,12 +1388,12 @@
                         <li>الوسائط المتعددة</li>
                     </ul>
                 </div>
-                
+
                 <div class="track-footer">
-                    <a href="files/html-platform.html" class="track-btn html">
+                    <button class="track-btn html" onclick="openModal()">
                         <span>ابدأ تعلم HTML</span>
                         <span>←</span>
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -1318,7 +1407,7 @@
                     <div class="track-name">CSS</div>
                     <div class="track-role">تصميم وجماليات</div>
                 </div>
-                
+
                 <div class="track-body">
                     <ul class="track-features">
                         <li>الألوان والخطوط والخلفيات</li>
@@ -1328,12 +1417,12 @@
                         <li>الرسوم المتحركة</li>
                     </ul>
                 </div>
-                
+
                 <div class="track-footer">
-                    <a href="files/css-platform.html" class="track-btn css">
+                    <button class="track-btn css" onclick="openModal()">
                         <span>ابدأ تعلم CSS</span>
                         <span>←</span>
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -1347,7 +1436,7 @@
                     <div class="track-name">JavaScript</div>
                     <div class="track-role">منطق وتفاعلية</div>
                 </div>
-                
+
                 <div class="track-body">
                     <ul class="track-features">
                         <li>المتغيرات والدوال والحلقات</li>
@@ -1357,12 +1446,12 @@
                         <li>ES6+ والبرمجة كائنية</li>
                     </ul>
                 </div>
-                
+
                 <div class="track-footer">
-                    <a href="files/js-platform.html" class="track-btn js">
+                    <button class="track-btn js" onclick="openModal()">
                         <span>ابدأ تعلم JS</span>
                         <span>←</span>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1417,7 +1506,7 @@
             <div class="dev-body">
                 <ul class="dev-contact-list">
                     <li>
-                        <a href="https://t.me/General_MRT" target="_blank" class="dev-contact-item">
+                        <a href="https://t.me/General_MRT" target="_blank" rel="noopener noreferrer" class="dev-contact-item">
                             <div class="dev-contact-icon telegram">📱</div>
                             <div class="dev-contact-info">
                                 <div class="dev-contact-label">Telegram</div>
@@ -1457,9 +1546,9 @@
             بوابتك الشاملة لتعلم تطوير الويب. ابدأ رحلتك اليوم وانضم لآلاف المتعلمين.
         </p>
         <div class="footer-links">
-            <a href="#roadmap" class="footer-link">خريطة الطريق</a>
-            <a href="#tracks" class="footer-link">المسارات</a>
-            <a href="#developer" class="footer-link">المطور</a>
+            <span onclick="scrollToSection('roadmap')" class="footer-link">خريطة الطريق</span>
+            <span onclick="scrollToSection('tracks')" class="footer-link">المسارات</span>
+            <span onclick="scrollToSection('developer')" class="footer-link">المطور</span>
         </div>
         <div class="footer-copy">
             © 2026 WebCraft Hub — صُنع بإتقان بواسطة <strong>الجنرال</strong> — جميع الحقوق محفوظة
@@ -1489,6 +1578,44 @@
         }
 
         // ============================================
+        // SMOOTH SCROLL
+        // ============================================
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const navHeight = document.querySelector('.nav').offsetHeight;
+                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo({
+                    top: elementPosition - navHeight - 20,
+                    behavior: 'smooth'
+                });
+                // Close mobile menu if open
+                closeMobileMenu();
+            }
+        }
+
+        // ============================================
+        // MODAL / COMING SOON
+        // ============================================
+        function openModal() {
+            const overlay = document.getElementById('modalOverlay');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            const overlay = document.getElementById('modalOverlay');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ============================================
         // ANIMATIONS ON SCROLL
         // ============================================
         const observerOptions = {
@@ -1516,9 +1643,11 @@
         // MOBILE MENU
         // ============================================
         function toggleMobileMenu() {
-            const links = document.querySelector('.nav-links');
-            if (links.style.display === 'flex') {
-                links.style.display = 'none';
+            const links = document.getElementById('navLinks');
+            const isOpen = links.classList.contains('mobile-open');
+
+            if (isOpen) {
+                closeMobileMenu();
             } else {
                 links.style.display = 'flex';
                 links.style.flexDirection = 'column';
@@ -1531,8 +1660,53 @@
                 links.style.padding = '1rem';
                 links.style.borderBottom = '1px solid var(--border-subtle)';
                 links.style.zIndex = '99';
+                links.style.gap = '0.5rem';
+                links.classList.add('mobile-open');
+
+                // Style mobile links
+                links.querySelectorAll('.nav-link').forEach(link => {
+                    link.style.padding = '0.75rem 1rem';
+                    link.style.borderRadius = '8px';
+                    link.style.width = '100%';
+                    link.style.textAlign = 'center';
+                });
             }
         }
+
+        function closeMobileMenu() {
+            const links = document.getElementById('navLinks');
+            if (window.innerWidth <= 768) {
+                links.style.display = 'none';
+            }
+            links.classList.remove('mobile-open');
+        }
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', function() {
+            const links = document.getElementById('navLinks');
+            if (window.innerWidth > 768) {
+                links.style.display = 'flex';
+                links.style.flexDirection = 'row';
+                links.style.position = 'static';
+                links.style.background = 'transparent';
+                links.style.backdropFilter = 'none';
+                links.style.padding = '0';
+                links.style.borderBottom = 'none';
+                links.style.gap = '2rem';
+                links.classList.remove('mobile-open');
+
+                links.querySelectorAll('.nav-link').forEach(link => {
+                    link.style.padding = '0.5rem 0';
+                    link.style.borderRadius = '0';
+                    link.style.width = 'auto';
+                    link.style.textAlign = 'right';
+                });
+            } else {
+                if (!links.classList.contains('mobile-open')) {
+                    links.style.display = 'none';
+                }
+            }
+        });
 
         // ============================================
         // TOAST
@@ -1543,6 +1717,23 @@
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
+
+        // ============================================
+        // NAV SCROLL EFFECT
+        // ============================================
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 50) {
+                nav.style.boxShadow = '0 4px 30px rgba(0,0,0,0.3)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+
+            lastScroll = currentScroll;
+        });
     </script>
 </body>
 </html>
