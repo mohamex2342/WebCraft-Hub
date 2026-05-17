@@ -1,0 +1,22 @@
+{
+  "name": "webcraft-hub",
+  "version": "1.0.0",
+  "description": "منصة تعليمية متكاملة لتعلم HTML و CSS و JavaScript من الصفر إلى الاحتراف",
+  "author": "WebCraft Team",
+  "license": "MIT",
+  "private": true,
+  
+  "scripts": {
+    "dev": "serve -s . -l 3000",
+    "build": "echo 'Static site - no build needed'",
+    "start": "serve -s . -l $PORT"
+  },
+  
+  "dependencies": {
+    "serve": "^14.2.1"
+  },
+  
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
