@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebCraft Hub — بوابتك لتعلم تطوير الويب</title>
+    <style>
+        /* ============================================
+           WEBCRAFT HUB — DESIGN SYSTEM
+           ============================================ */
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        
+        :root {
+            /* Base */
+            --bg-void: #050505;
+            --bg-surface: #0a0a0f;
+            --bg-elevated: #13131f;
+            --bg-glass: rgba(19, 19, 31, 0.7);
+            --text-primary: #f0f0f5;
+            --text-secondary: #8b8b9e;
+            --text-muted: #5a5a6e;
+            
+            /* Brand Colors */
+            --html-orange: #e34c26;
+            --html-glow: rgba(227, 76, 38, 0.3);
+            --css-blue: #264de4;
+            --css-glow: rgba(38, 77, 228, 0.3);
+            --js-yellow: #f7df1e;
+            --js-glow: rgba(247, 223, 30, 0.25);
+            
+            /* Gradients */
+            --grad-html: linear-gradient(135deg, #e34c26 0%, #f06529 100%);
+            --grad-css: linear-gradient(135deg, #264de4 0%, #2965f1 50%, #00d4ff 100%);
+            --grad-js: linear-gradient(135deg, #f7df1e 0%, #f0db4f 50%, #ff9d00 100%);
+            --grad-hero: linear-gradient(135deg, rgba(227,76,38,0.15) 0%, rgba(38,77,228,0.15) 50%, rgba(247,223,30,0.15) 100%);
+            
+            /* Effects */
+            --border-subtle: rgba(255,255,255,0.06);
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.3);
+            --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.5);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-ar: 'Tajawal', sans-serif;
+            --font-en: 'Space Grotesk', sans-serif;
+        }
+
+        [data-theme="light"] {
+            --bg-void: #f5f5fa;
+            --bg-surface: #ffffff;
+            --bg-elevated: #f0f0f5;
+            --bg-glass: rgba(255,255,255,0.8);
+            --text-primary: #0a0a0f;
+            --text-secondary: #4a4a5e;
+            --text-muted: #8a8a9e;
+            --border-subtle: rgba(0,0,0,0.08);
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 32px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-ar);
+            background: var(--bg-void);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+        }
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink-cursor {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: var(--text-primary); }
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        @keyframes scale-in {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .anim-fadeInUp { animation: fadeInUp 0.8s ease-out forwards; }
+        .anim-float { animation: float 6s ease-in-out infinite; }
+        .anim-delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .anim-delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .anim-delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .anim-delay-4 { animation-delay: 0.4s; opacity: 0; }
+
+        /* ============================================
+           BACKGROUND EFFECTS
+           ============================================ */
+        .bg-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(227,76,38,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(38,77,228,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(247,223,30,0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        [data-theme="light"] .bg-grid {
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+        }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: var(--bg-glass);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: var(--transition);
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-en);
+            font-weight: 700;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--html-orange), var(--css-blue), var(--js-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            letter-spacing: -1px;
+        }
+
+        .nav-brand-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-elevated);
+            border: 2px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            -webkit-text-fill-color: initial;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--grad-css);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-elevated);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            border-color: var(--css-blue);
+            color: var(--css-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--css-glow);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .nav { padding: 0.75rem 1rem; }
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 6rem 2rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero-orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            pointer-events: none;
+        }
+
+        .orbit-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid var(--border-subtle);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .orbit-ring:nth-child(1) { width: 200px; height: 200px; }
+        .orbit-ring:nth-child(2) { width: 320px; height: 320px; opacity: 0.2; }
+        .orbit-ring:nth-child(3) { width: 440px; height: 440px; opacity: 0.1; }
+
+        .orbit-particle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: -6px;
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        .orbit-particle.html { 
+            background: var(--html-orange); 
+            color: var(--html-orange);
+            animation: orbit 12s linear infinite;
+        }
+        .orbit-particle.css { 
+            background: var(--css-blue); 
+            color: var(--css-blue);
+            animation: orbit 16s linear infinite reverse;
+        }
+        .orbit-particle.js { 
+            background: var(--js-yellow); 
+            color: var(--js-yellow);
+            animation: orbit 20s linear infinite;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--js-yellow);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--js-glow);
+            animation: pulse-glow 2s infinite;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+        }
+
+        .hero-title-line1 {
+            display: block;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-title-line2 {
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .hero-title-html { color: var(--html-orange); -webkit-text-fill-color: initial; }
+        .hero-title-css { color: var(--css-blue); -webkit-text-fill-color: initial; }
+        .hero-title-js { color: var(--js-yellow); -webkit-text-fill-color: initial; }
+
+        .hero-desc {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.9;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--grad-css);
+            color: white;
+            box-shadow: 0 8px 30px var(--css-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px var(--css-glow);
+        }
+
+        .btn-secondary {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            border: 2px solid var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--js-yellow);
+            color: var(--js-yellow);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--js-glow);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 700;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .scroll-mouse {
+            width: 24px;
+            height: 40px;
+            border: 2px solid var(--text-muted);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            padding-top: 8px;
+        }
+
+        .scroll-wheel {
+            width: 4px;
+            height: 8px;
+            background: var(--text-muted);
+            border-radius: 2px;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .hero-orbit { display: none; }
+            .hero { padding: 5rem 1rem 3rem; }
+        }
+
+        /* ============================================
+           DASHBOARD SECTION
+           ============================================ */
+        .dashboard {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dash-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dash-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--html-orange), var(--css-blue), var(--js-yellow));
+        }
+
+        .dash-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .dash-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+
+        .dash-greeting {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .dash-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-subtle);
+        }
+
+        .stat-item.html:hover { border-color: var(--html-orange); box-shadow: 0 8px 30px var(--html-glow); }
+        .stat-item.css:hover { border-color: var(--css-blue); box-shadow: 0 8px 30px var(--css-glow); }
+        .stat-item.js:hover { border-color: var(--js-yellow); box-shadow: 0 8px 30px var(--js-glow); }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 900;
+            font-family: var(--font-en);
+        }
+
+        .stat-item.html .stat-value { color: var(--html-orange); }
+        .stat-item.css .stat-value { color: var(--css-blue); }
+        .stat-item.js .stat-value { color: var(--js-yellow); }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+            font-weight: 700;
+        }
+
+        .stat-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-void);
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+
+        .stat-item.html .stat-bar-fill { background: var(--grad-html); }
+        .stat-item.css .stat-bar-fill { background: var(--grad-css); }
+        .stat-item.js .stat-bar-fill { background: var(--grad-js); }
+
+        @media (max-width: 768px) {
+            .dash-stats { grid-template-columns: 1fr; }
+        }
+
+        /* ============================================
+           ROADMAP SECTION
+           ============================================ */
+        .roadmap {
+            padding: 6rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .roadmap-path {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .roadmap-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 50%;
+            width: 3px;
+            background: linear-gradient(180deg, var(--html-orange), var(--css-blue), var(--js-yellow));
+            transform: translateX(50%);
+            border-radius: 3px;
+        }
+
+        .roadmap-step {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .roadmap-step:nth-child(even) {
+            flex-direction: row-reverse;
+            text-align: left;
+        }
+
+        .roadmap-step:nth-child(even) .step-content {
+            text-align: right;
+        }
+
+        .step-node {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            border: 3px solid var(--bg-void);
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-node.html { background: var(--grad-html); }
+        .step-node.css { background: var(--grad-css); }
+        .step-node.js { background: var(--grad-js); }
+
+        .step-content {
+            flex: 1;
+            background: var(--bg-surface);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .step-content:hover {
+            transform: translateX(-10px);
+            border-color: var(--border-subtle);
+        }
+
+        .roadmap-step:nth-child(even) .step-content:hover {
+            transform: translateX(10px);
+        }
+
+        .step-number {
+            font-family: var(--font-en);
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .step-arrow {
+            position: absolute;
+            bottom: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .roadmap-line { right: 30px; }
+            .roadmap-step,
+            .roadmap-step:nth-child(even) {
+                flex-direction: row;
+                text-align: right;
+                padding-right: 60px;
+            }
+            .roadmap-step:nth-child(even) .step-content {
+                text-align: right;
+            }
+            .step-node {
+                position: absolute;
+                right: 0;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* ============================================
+           TRACKS CARDS SECTION
+           ============================================ */
+        .tracks {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tracks-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .track-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .track-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            transition: height 0.3s ease;
+        }
+
+        .track-card.html::before { background: var(--grad-html); }
+        .track-card.css::before { background: var(--grad-css); }
+        .track-card.js::before { background: var(--grad-js); }
+
+        .track-card:hover::before {
+            height: 6px;
+        }
+
+        .track-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .track-card.html:hover { box-shadow: 0 20px 60px var(--html-glow); border-color: rgba(227,76,38,0.3); }
+        .track-card.css:hover { box-shadow: 0 20px 60px var(--css-glow); border-color: rgba(38,77,228,0.3); }
+        .track-card.js:hover { box-shadow: 0 20px 60px var(--js-glow); border-color: rgba(247,223,30,0.3); }
+
+        .track-header {
+            padding: 2rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .track-icon-wrap {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        .track-card.html .track-icon-wrap { background: rgba(227,76,38,0.1); }
+        .track-card.css .track-icon-wrap { background: rgba(38,77,228,0.1); }
+        .track-card.js .track-icon-wrap { background: rgba(247,223,30,0.1); }
+
+        .track-icon-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            filter: blur(20px);
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .track-card.html .track-icon-glow { background: var(--html-orange); }
+        .track-card.css .track-icon-glow { background: var(--css-blue); }
+        .track-card.js .track-icon-glow { background: var(--js-yellow); }
+
+        .track-name {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .track-card.html .track-name { color: var(--html-orange); }
+        .track-card.css .track-name { color: var(--css-blue); }
+        .track-card.js .track-name { color: var(--js-yellow); }
+
+        .track-role {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .track-body {
+            padding: 0 2rem;
+            flex: 1;
+        }
+
+        .track-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .track-features li {
+            padding: 0.6rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .track-features li:last-child { border-bottom: none; }
+
+        .track-features li::before {
+            content: '→';
+            font-weight: 800;
+            font-family: var(--font-en);
+        }
+
+        .track-card.html .track-features li::before { color: var(--html-orange); }
+        .track-card.css .track-features li::before { color: var(--css-blue); }
+        .track-card.js .track-features li::before { color: var(--js-yellow); }
+
+        .track-footer {
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        .track-btn {
+            width: 100%;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .track-btn.html {
+            background: rgba(227,76,38,0.1);
+            color: var(--html-orange);
+            border-color: rgba(227,76,38,0.3);
+        }
+
+        .track-btn.html:hover {
+            background: var(--html-orange);
+            color: white;
+            box-shadow: 0 8px 30px var(--html-glow);
+            transform: translateY(-2px);
+        }
+
+        .track-btn.css {
+            background: rgba(38,77,228,0.1);
+            color: var(--css-blue);
+            border-color: rgba(38,77,228,0.3);
+        }
+
+        .track-btn.css:hover {
+            background: var(--css-blue);
+            color: white;
+            box-shadow: 0 8px 30px var(--css-glow);
+            transform: translateY(-2px);
+        }
+
+        .track-btn.js {
+            background: rgba(247,223,30,0.1);
+            color: var(--js-yellow);
+            border-color: rgba(247,223,30,0.3);
+        }
+
+        .track-btn.js:hover {
+            background: var(--js-yellow);
+            color: var(--bg-void);
+            box-shadow: 0 8px 30px var(--js-glow);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1024px) {
+            .tracks-grid { grid-template-columns: 1fr; max-width: 500px; margin: 3rem auto 0; }
+        }
+
+        /* ============================================
+           FEATURES STRIP
+           ============================================ */
+        .features {
+            padding: 4rem 2rem;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 1rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-brand {
+            font-family: var(--font-en);
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--html-orange), var(--css-blue), var(--js-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-desc {
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        /* ============================================
+           TOAST
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-subtle);
+            font-weight: 800;
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Confetti */
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -20px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-mesh"></div>
+    <div class="bg-grid"></div>
+    <div class="toast" id="toast"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <div class="nav-brand" onclick="window.scrollTo(0,0)">
+                <div class="nav-brand-icon">🌐</div>
+                <span>WebCraft Hub</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#dashboard" class="nav-link">لوحتي</a>
+                <a href="#roadmap" class="nav-link">خريطة الطريق</a>
+                <a href="#tracks" class="nav-link">المسارات</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="icon-btn" onclick="toggleTheme()" title="تبديل الوضع">🌓</button>
+                <button class="icon-btn mobile-menu-btn" onclick="toggleMobileMenu()" title="القائمة">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-orbit">
+            <div class="orbit-ring"></div>
+            <div class="orbit-ring"></div>
+            <div class="orbit-ring"></div>
+            <div class="orbit-particle html">H</div>
+            <div class="orbit-particle css">C</div>
+            <div class="orbit-particle js">J</div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                <span>منصة تعليمية متكاملة</span>
+            </div>
+            
+            <h1 class="hero-title">
+                <span class="hero-title-line1">ابنِ مستقبلك في</span>
+                <span class="hero-title-line2">
+                    <span class="hero-title-html">HTML</span>
+                    <span style="color: var(--text-muted);"> + </span>
+                    <span class="hero-title-css">CSS</span>
+                    <span style="color: var(--text-muted);"> + </span>
+                    <span class="hero-title-js">JS</span>
+                </span>
+            </h1>
+            
+            <p class="hero-desc">
+                رحلة واحدة متكاملة من الصفر إلى الاحتراف. تعلم كيف تبني مواقع ويب 
+                تفاعلية واحترافية باستخدام أقوى ثلاث تقنيات في عالم الويب.
+            </p>
+            
+            <div class="hero-cta-group">
+                <a href="#tracks" class="btn btn-primary">
+                    <span>🚀</span>
+                    <span>ابدأ الرحلة الآن</span>
+                </a>
+                <a href="#roadmap" class="btn btn-secondary">
+                    <span>🗺️</span>
+                    <span>استكشف الخريطة</span>
+                </a>
+            </div>
+        </div>
+
+        <a href="#dashboard" class="hero-scroll">
+            <span>اسحب للأسفل</span>
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+        </a>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard" id="dashboard">
+        <div class="dash-card anim-fadeInUp">
+            <div class="dash-header">
+                <div>
+                    <div class="dash-title">👋 مرحباً بك، متعلم الويب!</div>
+                    <div class="dash-greeting" id="greetingText">هذه لوحة تحكمك الشخصية لتتبع تقدمك</div>
+                </div>
+                <div class="section-tag" id="totalProgress">0% مكتمل</div>
+            </div>
+            
+            <div class="dash-stats">
+                <div class="stat-item html">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-value" id="htmlStat">0%</div>
+                    <div class="stat-label">HTML — الهيكلة</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" id="htmlBar" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="stat-item css">
+                    <div class="stat-icon">🎨</div>
+                    <div class="stat-value" id="cssStat">0%</div>
+                    <div class="stat-label">CSS — التصميم</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" id="cssBar" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="stat-item js">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-value" id="jsStat">0%</div>
+                    <div class="stat-label">JavaScript — المنطق</div>
+                    <div class="stat-bar">
+                        <div class="stat-bar-fill" id="jsBar" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section class="roadmap" id="roadmap">
+        <div class="section-header anim-fadeInUp">
+            <div class="section-tag">🗺️ خريطة الطريق</div>
+            <h2 class="section-title">كيف تبني موقعاً كاملاً؟</h2>
+            <p class="section-desc">
+                الثلاث لغات تكمل بعضها البعض. لا تتخطى الخطوات، واتبع المسار التالي للنجاح
+            </p>
+        </div>
+
+        <div class="roadmap-path">
+            <div class="roadmap-line"></div>
+            
+            <div class="roadmap-step anim-fadeInUp anim-delay-1">
+                <div class="step-node html">📝</div>
+                <div class="step-content">
+                    <div class="step-number">المرحلة الأولى</div>
+                    <div class="step-title" style="color: var(--html-orange)">HTML — الهيكل العظمي</div>
+                    <div class="step-desc">
+                        ابدأ بتعلم كيف تبني هيكل الصفحة. العناوين، الفقرات، الروابط، الصور، الجداول، والنماذج. 
+                        HTML هي الأساس الذي نبني عليه كل شيء.
+                    </div>
+                </div>
+            </div>
+
+            <div class="roadmap-step anim-fadeInUp anim-delay-2">
+                <div class="step-node css">🎨</div>
+                <div class="step-content">
+                    <div class="step-number">المرحلة الثانية</div>
+                    <div class="step-title" style="color: var(--css-blue)">CSS — الجمال والتنسيق</div>
+                    <div class="step-desc">
+                        بعد بناء الهيكل، أضف الألوان، الخطوط، التخطيطات، والتأثيرات. تعلم Flexbox وGrid 
+                        لإنشاء تصاميم متجاوبة تُبهر الزوار.
+                    </div>
+                </div>
+            </div>
+
+            <div class="roadmap-step anim-fadeInUp anim-delay-3">
+                <div class="step-node js">⚡</div>
+                <div class="step-content">
+                    <div class="step-number">المرحلة الثالثة</div>
+                    <div class="step-title" style="color: var(--js-yellow)">JavaScript — الذكاء والتفاعل</div>
+                    <div class="step-desc">
+                        أضف الحياة لموقعك! التفاعل مع المستخدم، التحقق من النماذج، جلب البيانات من الإنترنت، 
+                        وبناء تطبيقات ديناميكية حقيقية.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tracks Section -->
+    <section class="tracks" id="tracks">
+        <div class="section-header anim-fadeInUp">
+            <div class="section-tag">📚 المسارات التعليمية</div>
+            <h2 class="section-title">اختر مسارك وانطلق</h2>
+            <p class="section-desc">
+                كل مسار مصمم بعناية ليأخذك من الصفر إلى الاحتراف مع مشاريع عملية وتحديات برمجية
+            </p>
+        </div>
+
+        <div class="tracks-grid">
+            <!-- HTML Card -->
+            <div class="track-card html anim-fadeInUp anim-delay-1">
+                <div class="track-header">
+                    <div class="track-icon-wrap">
+                        <div class="track-icon-glow"></div>
+                        <span>📝</span>
+                    </div>
+                    <div class="track-name">HTML</div>
+                    <div class="track-role">هيكلة وتأسيس</div>
+                </div>
+                
+                <div class="track-body">
+                    <ul class="track-features">
+                        <li>الهيكل الأساسي للصفحة</li>
+                        <li>العناوين والنصوص والروابط</li>
+                        <li>الجداول والنماذج</li>
+                        <li>Semantic HTML5</li>
+                        <li>الوسائط المتعددة</li>
+                    </ul>
+                </div>
+                
+                <div class="track-footer">
+                    <a href="html-platform.html" class="track-btn html">
+                        <span>ابدأ تعلم HTML</span>
+                        <span>←</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- CSS Card -->
+            <div class="track-card css anim-fadeInUp anim-delay-2">
+                <div class="track-header">
+                    <div class="track-icon-wrap">
+                        <div class="track-icon-glow"></div>
+                        <span>🎨</span>
+                    </div>
+                    <div class="track-name">CSS</div>
+                    <div class="track-role">تصميم وجماليات</div>
+                </div>
+                
+                <div class="track-body">
+                    <ul class="track-features">
+                        <li>الألوان والخطوط والخلفيات</li>
+                        <li>Box Model والتخطيط</li>
+                        <li>Flexbox و CSS Grid</li>
+                        <li>التصميم المتجاوب</li>
+                        <li>الرسوم المتحركة</li>
+                    </ul>
+                </div>
+                
+                <div class="track-footer">
+                    <a href="css-platform.html" class="track-btn css">
+                        <span>ابدأ تعلم CSS</span>
+                        <span>←</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- JS Card -->
+            <div class="track-card js anim-fadeInUp anim-delay-3">
+                <div class="track-header">
+                    <div class="track-icon-wrap">
+                        <div class="track-icon-glow"></div>
+                        <span>⚡</span>
+                    </div>
+                    <div class="track-name">JavaScript</div>
+                    <div class="track-role">منطق وتفاعلية</div>
+                </div>
+                
+                <div class="track-body">
+                    <ul class="track-features">
+                        <li>المتغيرات والدوال والحلقات</li>
+                        <li>الكائنات والمصفوفات</li>
+                        <li>DOM والأحداث</li>
+                        <li>Async/Await و APIs</li>
+                        <li>ES6+ والبرمجة كائنية</li>
+                    </ul>
+                </div>
+                
+                <div class="track-footer">
+                    <a href="js-platform.html" class="track-btn js">
+                        <span>ابدأ تعلم JS</span>
+                        <span>←</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Strip -->
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">مشاريع عملية</div>
+                <div class="feature-desc">تعلم من خلال بناء مشاريع حقيقية</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🏃</div>
+                <div class="feature-title">تعلم بنفسك</div>
+                <div class="feature-desc">وتيرة تعلمك تحددها أنت</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🧪</div>
+                <div class="feature-title">تحديات برمجية</div>
+                <div class="feature-desc">اختبر مهاراتك بتحديات تفاعلية</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📱</div>
+                <div class="feature-title">تعلم من أي مكان</div>
+                <div class="feature-desc">منصة متجاوبة مع جميع الأجهزة</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-brand">WebCraft Hub</div>
+        <p class="footer-desc">
+            بوابتك الشاملة لتعلم تطوير الويب. ابدأ رحلتك اليوم وانضم لآلاف المتعلمين.
+        </p>
+        <div class="footer-links">
+            <a href="#" class="footer-link">عن المنصة</a>
+            <a href="#" class="footer-link">المسارات</a>
+            <a href="#" class="footer-link">المساعدة</a>
+        </div>
+        <div class="footer-copy">
+            © 2026 WebCraft Hub — جميع الحقوق محفوظة
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // THEME MANAGEMENT
+        // ============================================
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isLight = html.getAttribute('data-theme') === 'light';
+            if (isLight) {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('webcraft-theme', 'dark');
+            } else {
+                html.setAttribute('data-theme', 'light');
+                localStorage.setItem('webcraft-theme', 'light');
+            }
+        }
+
+        // Init theme
+        const savedTheme = localStorage.getItem('webcraft-theme');
+        if (savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+
+        // ============================================
+        // PROGRESS DASHBOARD
+        // ============================================
+        function loadProgress() {
+            // Read progress from all three platforms' localStorage keys
+            const htmlProgress = getPlatformProgress('htmlProProgress');    // HTML platform key
+            const cssProgress = getPlatformProgress('cssMasterProgress');   // CSS platform key  
+            const jsProgress = getPlatformProgress('jsForgeProgress');      // JS platform key
+
+            // HTML has 10 lessons
+            const htmlPct = Math.round((htmlProgress.length / 10) * 100);
+            // CSS has 10 lessons
+            const cssPct = Math.round((cssProgress.length / 10) * 100);
+            // JS has 12 lessons
+            const jsPct = Math.round((jsProgress.length / 12) * 100);
+
+            // Update DOM
+            updateStat('html', htmlPct);
+            updateStat('css', cssPct);
+            updateStat('js', jsPct);
+
+            // Total progress (weighted average)
+            const total = Math.round((htmlPct + cssPct + jsPct) / 3);
+            document.getElementById('totalProgress').textContent = total + '% مكتمل';
+
+            // Greeting based on progress
+            const greeting = document.getElementById('greetingText');
+            if (total === 0) {
+                greeting.textContent = 'أهلاً بك! اختر أول مسار وابدأ رحلتك';
+            } else if (total < 30) {
+                greeting.textContent = 'بداية رائعة! واصل التقدم في المسارات';
+            } else if (total < 70) {
+                greeting.textContent = 'أنت في منتصف الرحلة! لا تتوقف الآن';
+            } else if (total < 100) {
+                greeting.textContent = 'اقتربت من النهاية! أنت تقريباً محترف';
+            } else {
+                greeting.textContent = '🎉 مبروك! لقد أكملت جميع المسارات';
+                triggerConfetti();
+            }
+        }
+
+        function getPlatformProgress(key) {
+            try {
+                return JSON.parse(localStorage.getItem(key) || '[]');
+            } catch(e) {
+                return [];
+            }
+        }
+
+        function updateStat(type, pct) {
+            document.getElementById(type + 'Stat').textContent = pct + '%';
+            document.getElementById(type + 'Bar').style.width = pct + '%';
+        }
+
+        // ============================================
+        // ANIMATIONS ON SCROLL
+        // ============================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.anim-fadeInUp').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease-out';
+            observer.observe(el);
+        });
+
+        // ============================================
+        // MOBILE MENU
+        // ============================================
+        function toggleMobileMenu() {
+            const links = document.querySelector('.nav-links');
+            if (links.style.display === 'flex') {
+                links.style.display = 'none';
+            } else {
+                links.style.display = 'flex';
+                links.style.flexDirection = 'column';
+                links.style.position = 'absolute';
+                links.style.top = '64px';
+                links.style.left = '0';
+                links.style.right = '0';
+                links.style.background = 'var(--bg-glass)';
+                links.style.backdropFilter = 'blur(24px)';
+                links.style.padding = '1rem';
+                links.style.borderBottom = '1px solid var(--border-subtle)';
+                links.style.zIndex = '99';
+            }
+        }
+
+        // ============================================
+        // CONFETTI
+        // ============================================
+        function triggerConfetti() {
+            const colors = ['#e34c26', '#264de4', '#f7df1e', '#34d399', '#a855f7'];
+            for (let i = 0; i < 60; i++) {
+                const c = document.createElement('div');
+                c.className = 'confetti-piece';
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.background = colors[Math.floor(Math.random() * colors.length)];
+                c.style.width = (Math.random() * 10 + 5) + 'px';
+                c.style.height = (Math.random() * 10 + 5) + 'px';
+                c.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                c.style.animation = `confetti-fall ${Math.random() * 3 + 2}s ease-out forwards`;
+                c.style.animationDelay = Math.random() * 0.5 + 's';
+                document.body.appendChild(c);
+                setTimeout(() => c.remove(), 5000);
+            }
+        }
+
+        // ============================================
+        // TOAST
+        // ============================================
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ============================================
+        // INIT
+        // ============================================
+        loadProgress();
+
+        // Re-check progress when user returns to page
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) loadProgress();
+        });
+    </script>
+</body>
+</html>
