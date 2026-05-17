@@ -11,7 +11,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
         
         :root {
-            /* Base */
             --bg-void: #050505;
             --bg-surface: #0a0a0f;
             --bg-elevated: #13131f;
@@ -20,7 +19,6 @@
             --text-secondary: #8b8b9e;
             --text-muted: #5a5a6e;
             
-            /* Brand Colors */
             --html-orange: #e34c26;
             --html-glow: rgba(227, 76, 38, 0.3);
             --css-blue: #264de4;
@@ -28,13 +26,10 @@
             --js-yellow: #f7df1e;
             --js-glow: rgba(247, 223, 30, 0.25);
             
-            /* Gradients */
             --grad-html: linear-gradient(135deg, #e34c26 0%, #f06529 100%);
             --grad-css: linear-gradient(135deg, #264de4 0%, #2965f1 50%, #00d4ff 100%);
             --grad-js: linear-gradient(135deg, #f7df1e 0%, #f0db4f 50%, #ff9d00 100%);
-            --grad-hero: linear-gradient(135deg, rgba(227,76,38,0.15) 0%, rgba(38,77,228,0.15) 50%, rgba(247,223,30,0.15) 100%);
             
-            /* Effects */
             --border-subtle: rgba(255,255,255,0.06);
             --shadow-sm: 0 4px 12px rgba(0,0,0,0.3);
             --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
@@ -54,7 +49,7 @@
             --bg-glass: rgba(255,255,255,0.8);
             --text-primary: #0a0a0f;
             --text-secondary: #4a4a5e;
-            --text-muted: #8a8a9e;
+            --text-muted: #94a3b8;
             --border-subtle: rgba(0,0,0,0.08);
             --shadow-sm: 0 4px 12px rgba(0,0,0,0.06);
             --shadow-md: 0 8px 32px rgba(0,0,0,0.08);
@@ -74,7 +69,6 @@
             color: var(--text-primary);
             line-height: 1.7;
             overflow-x: hidden;
-            transition: var(--transition);
             min-height: 100vh;
         }
 
@@ -110,32 +104,15 @@
             from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
             to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
         }
-        @keyframes typewriter {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes blink-cursor {
-            0%, 100% { border-color: transparent; }
-            50% { border-color: var(--text-primary); }
-        }
-        @keyframes confetti-fall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-        @keyframes scale-in {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
 
         .anim-fadeInUp { animation: fadeInUp 0.8s ease-out forwards; }
         .anim-float { animation: float 6s ease-in-out infinite; }
         .anim-delay-1 { animation-delay: 0.1s; opacity: 0; }
         .anim-delay-2 { animation-delay: 0.2s; opacity: 0; }
         .anim-delay-3 { animation-delay: 0.3s; opacity: 0; }
-        .anim-delay-4 { animation-delay: 0.4s; opacity: 0; }
 
         /* ============================================
-           BACKGROUND EFFECTS
+           BACKGROUND
            ============================================ */
         .bg-mesh {
             position: fixed;
@@ -532,123 +509,6 @@
         }
 
         /* ============================================
-           DASHBOARD SECTION
-           ============================================ */
-        .dashboard {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .dash-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            box-shadow: var(--shadow-md);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dash-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--html-orange), var(--css-blue), var(--js-yellow));
-        }
-
-        .dash-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .dash-title {
-            font-size: 1.5rem;
-            font-weight: 900;
-        }
-
-        .dash-greeting {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .dash-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1.5rem;
-            background: var(--bg-elevated);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-subtle);
-            transition: var(--transition);
-        }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-            border-color: var(--border-subtle);
-        }
-
-        .stat-item.html:hover { border-color: var(--html-orange); box-shadow: 0 8px 30px var(--html-glow); }
-        .stat-item.css:hover { border-color: var(--css-blue); box-shadow: 0 8px 30px var(--css-glow); }
-        .stat-item.js:hover { border-color: var(--js-yellow); box-shadow: 0 8px 30px var(--js-glow); }
-
-        .stat-icon {
-            font-size: 2rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 900;
-            font-family: var(--font-en);
-        }
-
-        .stat-item.html .stat-value { color: var(--html-orange); }
-        .stat-item.css .stat-value { color: var(--css-blue); }
-        .stat-item.js .stat-value { color: var(--js-yellow); }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-            font-weight: 700;
-        }
-
-        .stat-bar {
-            width: 100%;
-            height: 6px;
-            background: var(--bg-void);
-            border-radius: 3px;
-            margin-top: 1rem;
-            overflow: hidden;
-        }
-
-        .stat-bar-fill {
-            height: 100%;
-            border-radius: 3px;
-            transition: width 1s ease;
-        }
-
-        .stat-item.html .stat-bar-fill { background: var(--grad-html); }
-        .stat-item.css .stat-bar-fill { background: var(--grad-css); }
-        .stat-item.js .stat-bar-fill { background: var(--grad-js); }
-
-        @media (max-width: 768px) {
-            .dash-stats { grid-template-columns: 1fr; }
-        }
-
-        /* ============================================
            ROADMAP SECTION
            ============================================ */
         .roadmap {
@@ -775,15 +635,6 @@
         .step-desc {
             color: var(--text-secondary);
             font-size: 0.95rem;
-        }
-
-        .step-arrow {
-            position: absolute;
-            bottom: -2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--text-muted);
-            font-size: 1.5rem;
         }
 
         @media (max-width: 768px) {
@@ -1059,6 +910,155 @@
         }
 
         /* ============================================
+           DEVELOPER SECTION
+           ============================================ */
+        .developer {
+            padding: 6rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .dev-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dev-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--html-orange), var(--css-blue), var(--js-yellow));
+        }
+
+        .dev-header {
+            padding: 2.5rem 2rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .dev-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: var(--bg-elevated);
+            border: 3px solid var(--border-subtle);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+        }
+
+        .dev-avatar-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--html-orange), var(--css-blue), var(--js-yellow));
+            filter: blur(20px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .dev-name {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dev-role {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .dev-body {
+            padding: 2rem;
+        }
+
+        .dev-contact-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .dev-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .dev-contact-item:hover {
+            transform: translateX(-8px);
+            border-color: var(--css-blue);
+            box-shadow: 0 4px 20px var(--css-glow);
+        }
+
+        .dev-contact-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .dev-contact-icon.telegram { background: rgba(34, 158, 217, 0.15); }
+        .dev-contact-icon.email { background: rgba(234, 67, 53, 0.15); }
+        .dev-contact-icon.user { background: rgba(138, 180, 248, 0.15); }
+
+        .dev-contact-info {
+            flex: 1;
+        }
+
+        .dev-contact-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .dev-contact-value {
+            font-size: 0.95rem;
+            font-weight: 800;
+            font-family: var(--font-en);
+            direction: ltr;
+            text-align: right;
+        }
+
+        .dev-contact-arrow {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .dev-contact-item:hover .dev-contact-arrow {
+            color: var(--css-blue);
+            transform: translateX(-4px);
+        }
+
+        /* ============================================
            FOOTER
            ============================================ */
         .footer {
@@ -1134,16 +1134,6 @@
             transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
-
-        /* Confetti */
-        .confetti-piece {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            top: -20px;
-            z-index: 9999;
-            pointer-events: none;
-        }
     </style>
 <base target="_blank">
 </head>
@@ -1162,9 +1152,9 @@
             </div>
             
             <div class="nav-links">
-                <a href="#dashboard" class="nav-link">لوحتي</a>
                 <a href="#roadmap" class="nav-link">خريطة الطريق</a>
                 <a href="#tracks" class="nav-link">المسارات</a>
+                <a href="#developer" class="nav-link">المطور</a>
             </div>
             
             <div class="nav-actions">
@@ -1219,54 +1209,12 @@
             </div>
         </div>
 
-        <a href="#dashboard" class="hero-scroll">
+        <a href="#roadmap" class="hero-scroll">
             <span>اسحب للأسفل</span>
             <div class="scroll-mouse">
                 <div class="scroll-wheel"></div>
             </div>
         </a>
-    </section>
-
-    <!-- Dashboard Section -->
-    <section class="dashboard" id="dashboard">
-        <div class="dash-card anim-fadeInUp">
-            <div class="dash-header">
-                <div>
-                    <div class="dash-title">👋 مرحباً بك، متعلم الويب!</div>
-                    <div class="dash-greeting" id="greetingText">هذه لوحة تحكمك الشخصية لتتبع تقدمك</div>
-                </div>
-                <div class="section-tag" id="totalProgress">0% مكتمل</div>
-            </div>
-            
-            <div class="dash-stats">
-                <div class="stat-item html">
-                    <div class="stat-icon">📝</div>
-                    <div class="stat-value" id="htmlStat">0%</div>
-                    <div class="stat-label">HTML — الهيكلة</div>
-                    <div class="stat-bar">
-                        <div class="stat-bar-fill" id="htmlBar" style="width: 0%"></div>
-                    </div>
-                </div>
-                
-                <div class="stat-item css">
-                    <div class="stat-icon">🎨</div>
-                    <div class="stat-value" id="cssStat">0%</div>
-                    <div class="stat-label">CSS — التصميم</div>
-                    <div class="stat-bar">
-                        <div class="stat-bar-fill" id="cssBar" style="width: 0%"></div>
-                    </div>
-                </div>
-                
-                <div class="stat-item js">
-                    <div class="stat-icon">⚡</div>
-                    <div class="stat-value" id="jsStat">0%</div>
-                    <div class="stat-label">JavaScript — المنطق</div>
-                    <div class="stat-bar">
-                        <div class="stat-bar-fill" id="jsBar" style="width: 0%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- Roadmap Section -->
@@ -1353,7 +1301,7 @@
                 </div>
                 
                 <div class="track-footer">
-                    <a href="html-platform.html" class="track-btn html">
+                    <a href="files/html-platform.html" class="track-btn html">
                         <span>ابدأ تعلم HTML</span>
                         <span>←</span>
                     </a>
@@ -1382,7 +1330,7 @@
                 </div>
                 
                 <div class="track-footer">
-                    <a href="css-platform.html" class="track-btn css">
+                    <a href="files/css-platform.html" class="track-btn css">
                         <span>ابدأ تعلم CSS</span>
                         <span>←</span>
                     </a>
@@ -1411,7 +1359,7 @@
                 </div>
                 
                 <div class="track-footer">
-                    <a href="js-platform.html" class="track-btn js">
+                    <a href="files/js-platform.html" class="track-btn js">
                         <span>ابدأ تعلم JS</span>
                         <span>←</span>
                     </a>
@@ -1446,6 +1394,62 @@
         </div>
     </section>
 
+    <!-- Developer Section -->
+    <section class="developer" id="developer">
+        <div class="section-header anim-fadeInUp">
+            <div class="section-tag">👨‍💻 المطور</div>
+            <h2 class="section-title">تعرف على من بنى هذه المنصة</h2>
+            <p class="section-desc">
+                مطور واجهات أمامية شغوف بتعليم البرمجة وبناء تجارب مستخدم استثنائية
+            </p>
+        </div>
+
+        <div class="dev-card anim-fadeInUp anim-delay-1">
+            <div class="dev-header">
+                <div class="dev-avatar">
+                    <div class="dev-avatar-glow"></div>
+                    <span>👨‍💻</span>
+                </div>
+                <div class="dev-name">الجنرال</div>
+                <div class="dev-role">مطور واجهات أمامية | Frontend Architect</div>
+            </div>
+
+            <div class="dev-body">
+                <ul class="dev-contact-list">
+                    <li>
+                        <a href="https://t.me/General_MRT" target="_blank" class="dev-contact-item">
+                            <div class="dev-contact-icon telegram">📱</div>
+                            <div class="dev-contact-info">
+                                <div class="dev-contact-label">Telegram</div>
+                                <div class="dev-contact-value">@General_MRT</div>
+                            </div>
+                            <div class="dev-contact-arrow">←</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:rbym2342@gmail.com" class="dev-contact-item">
+                            <div class="dev-contact-icon email">✉️</div>
+                            <div class="dev-contact-info">
+                                <div class="dev-contact-label">البريد الإلكتروني</div>
+                                <div class="dev-contact-value">rbym2342@gmail.com</div>
+                            </div>
+                            <div class="dev-contact-arrow">←</div>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="dev-contact-item" style="cursor: default;">
+                            <div class="dev-contact-icon user">👤</div>
+                            <div class="dev-contact-info">
+                                <div class="dev-contact-label">المسمى الوظيفي</div>
+                                <div class="dev-contact-value">Senior Frontend Developer</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-brand">WebCraft Hub</div>
@@ -1453,12 +1457,12 @@
             بوابتك الشاملة لتعلم تطوير الويب. ابدأ رحلتك اليوم وانضم لآلاف المتعلمين.
         </p>
         <div class="footer-links">
-            <a href="#" class="footer-link">عن المنصة</a>
-            <a href="#" class="footer-link">المسارات</a>
-            <a href="#" class="footer-link">المساعدة</a>
+            <a href="#roadmap" class="footer-link">خريطة الطريق</a>
+            <a href="#tracks" class="footer-link">المسارات</a>
+            <a href="#developer" class="footer-link">المطور</a>
         </div>
         <div class="footer-copy">
-            © 2026 WebCraft Hub — جميع الحقوق محفوظة
+            © 2026 WebCraft Hub — صُنع بإتقان بواسطة <strong>الجنرال</strong> — جميع الحقوق محفوظة
         </div>
     </footer>
 
@@ -1482,60 +1486,6 @@
         const savedTheme = localStorage.getItem('webcraft-theme');
         if (savedTheme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
-        }
-
-        // ============================================
-        // PROGRESS DASHBOARD
-        // ============================================
-        function loadProgress() {
-            // Read progress from all three platforms' localStorage keys
-            const htmlProgress = getPlatformProgress('htmlProProgress');    // HTML platform key
-            const cssProgress = getPlatformProgress('cssMasterProgress');   // CSS platform key  
-            const jsProgress = getPlatformProgress('jsForgeProgress');      // JS platform key
-
-            // HTML has 10 lessons
-            const htmlPct = Math.round((htmlProgress.length / 10) * 100);
-            // CSS has 10 lessons
-            const cssPct = Math.round((cssProgress.length / 10) * 100);
-            // JS has 12 lessons
-            const jsPct = Math.round((jsProgress.length / 12) * 100);
-
-            // Update DOM
-            updateStat('html', htmlPct);
-            updateStat('css', cssPct);
-            updateStat('js', jsPct);
-
-            // Total progress (weighted average)
-            const total = Math.round((htmlPct + cssPct + jsPct) / 3);
-            document.getElementById('totalProgress').textContent = total + '% مكتمل';
-
-            // Greeting based on progress
-            const greeting = document.getElementById('greetingText');
-            if (total === 0) {
-                greeting.textContent = 'أهلاً بك! اختر أول مسار وابدأ رحلتك';
-            } else if (total < 30) {
-                greeting.textContent = 'بداية رائعة! واصل التقدم في المسارات';
-            } else if (total < 70) {
-                greeting.textContent = 'أنت في منتصف الرحلة! لا تتوقف الآن';
-            } else if (total < 100) {
-                greeting.textContent = 'اقتربت من النهاية! أنت تقريباً محترف';
-            } else {
-                greeting.textContent = '🎉 مبروك! لقد أكملت جميع المسارات';
-                triggerConfetti();
-            }
-        }
-
-        function getPlatformProgress(key) {
-            try {
-                return JSON.parse(localStorage.getItem(key) || '[]');
-            } catch(e) {
-                return [];
-            }
-        }
-
-        function updateStat(type, pct) {
-            document.getElementById(type + 'Stat').textContent = pct + '%';
-            document.getElementById(type + 'Bar').style.width = pct + '%';
         }
 
         // ============================================
@@ -1585,26 +1535,6 @@
         }
 
         // ============================================
-        // CONFETTI
-        // ============================================
-        function triggerConfetti() {
-            const colors = ['#e34c26', '#264de4', '#f7df1e', '#34d399', '#a855f7'];
-            for (let i = 0; i < 60; i++) {
-                const c = document.createElement('div');
-                c.className = 'confetti-piece';
-                c.style.left = Math.random() * 100 + 'vw';
-                c.style.background = colors[Math.floor(Math.random() * colors.length)];
-                c.style.width = (Math.random() * 10 + 5) + 'px';
-                c.style.height = (Math.random() * 10 + 5) + 'px';
-                c.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-                c.style.animation = `confetti-fall ${Math.random() * 3 + 2}s ease-out forwards`;
-                c.style.animationDelay = Math.random() * 0.5 + 's';
-                document.body.appendChild(c);
-                setTimeout(() => c.remove(), 5000);
-            }
-        }
-
-        // ============================================
         // TOAST
         // ============================================
         function showToast(msg) {
@@ -1613,16 +1543,6 @@
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
-
-        // ============================================
-        // INIT
-        // ============================================
-        loadProgress();
-
-        // Re-check progress when user returns to page
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden) loadProgress();
-        });
     </script>
 </body>
 </html>
