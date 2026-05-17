@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "name": "webcraft-hub",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "."
+      }
+    }
+  ],
+  "routes": [
+    { "src": "/html-platform", "dest": "/html-platform.html" },
+    { "src": "/css-platform", "dest": "/css-platform.html" },
+    { "src": "/js-platform", "dest": "/js-platform.html" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
