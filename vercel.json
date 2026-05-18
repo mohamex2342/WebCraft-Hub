@@ -6,18 +6,18 @@
   "rewrites": [
     {
       "source": "/files/html-platform",
-      "destination": "/files/html-platform"
+      "destination": "/files/html-platform.html"
     },
     {
       "source": "/files/css-platform",
-      "destination": "/files/css-platform"
+      "destination": "/files/css-platform.html"
     },
     {
       "source": "/files/js-platform",
-      "destination": "/files/js-platform"
+      "destination": "/files/js-platform.html"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!files|assets|css|js|.*\\..*$).*)",
       "destination": "/"
     }
   ]
