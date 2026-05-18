@@ -15,5 +15,10 @@
     { "src": "/css-platform", "dest": "/css-platform.html" },
     { "src": "/js-platform", "dest": "/js-platform.html" },
     { "src": "/(.*)", "dest": "/index.html" }
-  ]
+  ],
+  {
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false
+}
 }
