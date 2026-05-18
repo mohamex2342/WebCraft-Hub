@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Pro - منصة تعليم HTML الاحترافية</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        /* Header */
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: var(--radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+            border-color: var(--primary);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--border);
+            z-index: 999;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 2rem 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .level-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .level-header {
+            font-weight: 700;
+            padding: 0.75rem;
+            background: var(--bg);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .lesson-item {
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: right;
+            color: var(--text);
+        }
+
+        .lesson-item:hover {
+            background: var(--bg);
+        }
+
+        .lesson-item.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .lesson-item.completed {
+            color: var(--success);
+        }
+
+        .lesson-status {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        .lesson-item.completed .lesson-status {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .lesson-item.active .lesson-status {
+            border-color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .lesson-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .lesson-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .lesson-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .lesson-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .content-section {
+            margin: 2rem 0;
+        }
+
+        .content-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-section h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .content-section p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'HTML';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-bottom-left-radius: 8px;
+        }
+
+        .code-block code {
+            display: block;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(99, 102, 241, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Interactive Editor */
+        .editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .editor-panel {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-header {
+            background: var(--bg);
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-editor {
+            flex: 1;
+            min-height: 300px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            border: none;
+            resize: none;
+            background: var(--bg);
+            color: var(--text);
+            outline: none;
+        }
+
+        .preview-panel {
+            background: white;
+            border-right: 2px solid var(--border);
+        }
+
+        .preview-frame {
+            width: 100%;
+            height: 300px;
+            border: none;
+            background: white;
+        }
+
+        .editor-toolbar {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+        }
+
+        .toolbar-btn {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .toolbar-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(236, 72, 153, 0.05));
+            border: 2px solid var(--primary);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .quiz-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quiz-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .quiz-option {
+            padding: 1rem 1.25rem;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            transform: translateX(-5px);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .quiz-option.wrong {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .quiz-result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+
+        .quiz-result.show {
+            display: block;
+        }
+
+        .quiz-result.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .quiz-result.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        /* Navigation */
+        .lesson-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+
+        /* Stats Dashboard */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+                order: 2;
+            }
+            
+            .editor-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .preview-panel {
+                border-right: none;
+                border-top: 2px solid var(--border);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem;
+            background: var(--text);
+            color: var(--bg);
+            font-size: 0.8rem;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-beginner { background: #dbeafe; color: #1d4ed8; }
+        .badge-intermediate { background: #fef3c7; color: #b45309; }
+        .badge-advanced { background: #fce7f3; color: #be185d; }
+
+        [data-theme="dark"] .badge-beginner { background: rgba(29, 78, 216, 0.3); }
+        [data-theme="dark"] .badge-intermediate { background: rgba(180, 83, 9, 0.3); }
+        [data-theme="dark"] .badge-advanced { background: rgba(190, 24, 93, 0.3); }
+
+        /* Confetti Animation */
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: 100%;
+            z-index: 9999;
+            animation: confetti 3s ease-out forwards;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span>🚀</span>
+            <span>HTML Pro</span>
+        </div>
+        <div class="nav-buttons">
+            <button class="theme-toggle" onclick="toggleTheme()" title="تبديل الوضع الليلي">🌙</button>
+            <button class="btn btn-secondary" onclick="resetProgress()">🔄 إعادة التقدم</button>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-title">
+                <span>📚</span>
+                <span>محتوى الدورة</span>
+            </div>
+            
+            <div class="level-section">
+                <div class="level-header">
+                    <span>🌱</span>
+                    <span>المستوى المبتدئ</span>
+                </div>
+                <button class="lesson-item active" onclick="loadLesson(0)" data-index="0">
+                    <span class="lesson-status">○</span>
+                    <span>مقدمة في HTML</span>
+                </button>
+                <button class="lesson-item" onclick="loadLesson(1)" data-index="1">
+                    <span class="lesson-status">○</span>
+                    <span>الهيكل الأساسي</span>
+                </button>
+                <button class="lesson-item" onclick="loadLesson(2)" data-index="2">
+                    <span class="lesson-status">○</span>
+                    <span>العناوين والنصوص</span>
+                </button>
+                <button class="lesson-item" onclick="loadLesson(3)" data-index="3">
+                    <span class="lesson-status">○</span>
+                    <span>الروابط والصور</span>
+                </button>
+            </div>
+
+            <div class="level-section">
+                <div class="level-header">
+                    <span>🌿</span>
+                    <span>المستوى المتوسط</span>
+                </div>
+                <button class="lesson-item" onclick="loadLesson(4)" data-index="4">
+                    <span class="lesson-status">○</span>
+                    <span>الجداول</span>
+                </button>
+                <button class="lesson-item" onclick="loadLesson(5)" data-index="5">
+                    <span class="lesson-status">○</span>
+                    <span>النماذج Forms</span>
+                </button>
+                <button class="lesson-item" onclick="loadLesson(6)" data-index="6">
+                    <span class="lesson-status">○</span>
+                    <span>القوائم</span>
+                </button>
+            </div>
+
+            <div class="level-section">
+                <div class="level-header">
+                    <span>🌳</span>
+                    <span>المستوى المتقدم</span>
+                </div>
+                <button class="lesson-item" onclick="loadLesson(7)" data-index="7">
+                    <span class="lesson-status">○</span>
+                    <span>Semantic HTML</span>
+                </button>
+                <button class="lesson-item" onclick="loadLesson(8)" data-index="8">
+                    <span class="lesson-status">○</span>
+                    <span>الوسائط المتعددة</span>
+                </button>
+                <button class="lesson-item" onclick="loadLesson(9)" data-index="9">
+                    <span class="lesson-status">○</span>
+                    <span>أفضل الممارسات</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Content loaded dynamically -->
+        </main>
+    </div>
+
+    <script>
+        // Course Data
+        const lessons = [
+            {
+                title: "مقدمة في HTML",
+                level: "beginner",
+                description: "تعرف على لغة HTML وأهميتها في بناء صفحات الويب",
+                content: `
+                    <div class="lesson-header">
+                        <span class="lesson-tag badge badge-beginner">مبتدئ</span>
+                        <h1 class="lesson-title">مقدمة في HTML</h1>
+                        <p class="lesson-description">تعرف على لغة HTML وأهميتها في بناء صفحات الويب</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">10</div>
+                            <div class="stat-label">دروس في الدورة</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">30+</div>
+                            <div class="stat-label">تمرين تفاعلي</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="currentProgress">0%</div>
+                            <div class="stat-label">تقدمك الحالي</div>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>🎯 ما هي HTML؟</h2>
+                        <p><span class="highlight">HTML</span> (HyperText Markup Language) هي لغة الترميز القياسية لإنشاء صفحات الويب. تخيلها كالهيكل العظمي للموقع - فهي تحدد محتوى الصفحة وتركيبها.</p>
+                        <p>تم إنشاء HTML عام <span class="highlight">1993</span> بواسطة تيم بيرنرز لي، وهي الآن في إصدارها الخامس (HTML5) الذي يوفر ميزات قوية لتطوير الويب الحديث.</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>🌟 لماذا نتعلم HTML؟</h2>
+                        <p>• <strong>أساس الويب:</strong> كل موقع ويب يبدأ بـ HTML</p>
+                        <p>• <strong>سهولة التعلم:</strong> من أسهل لغات البرمجة للمبتدئين</p>
+                        <p>• <strong>التوافق:</strong> تعمل على جميع الأجهزة والمتصفحات</p>
+                        <p>• <strong>الوظائف:</strong> مطلوبة في كل وظائف تطوير الويب</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>🛠️ جرب بنفسك</h2>
+                        <p>في المحرر التفاعلي أدناه، اكتب <span class="highlight">&lt;h1&gt;مرحباً بك&lt;/h1&gt;</span> لتجربة أول كود HTML لك:</p>
+                    </div>
+                `,
+                defaultCode: "<h1>مرحباً بك في عالم HTML!</h1>\n<p>هذه أول صفحة ويب لك.</p>",
+                quiz: {
+                    question: "ماذا تعني HTML؟",
+                    options: [
+                        "HyperText Markup Language",
+                        "HighTech Modern Language",
+                        "Home Tool Management Link",
+                        "Hyper Transfer Main Link"
+                    ],
+                    correct: 0
+                }
+            },
+            {
+                title: "الهيكل الأساسي",
+                level: "beginner",
+                description: "تعلم البنية الأساسية لأي صفحة HTML",
+                content: `
+                    <div class="lesson-header">
+                        <span class="lesson-tag badge badge-beginner">مبتدئ</span>
+                        <h1 class="lesson-title">الهيكل الأساسي لصفحة HTML</h1>
+                        <p class="lesson-description">تعلم البنية الأساسية لأي صفحة HTML</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>🏗️ المكونات الأساسية</h2>
+                        <p>كل صفحة HTML تحتوي على هيكل ثابت يتكون من:</p>
+                        
+                        <div class="code-block">
+<code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ar"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;عنوان الصفحة&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- المحتوى هنا --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code>
+                        </div>
+
+                        <h3>شرح المكونات:</h3>
+                        <p>• <span class="highlight">&lt;!DOCTYPE html&gt;</span> - يخبر المتصفح أن هذا المستند HTML5</p>
+                        <p>• <span class="highlight">&lt;html&gt;</span> - الجذر الرئيسي للصفحة</p>
+                        <p>• <span class="highlight">&lt;head&gt;</span> - يحتوي على الميتاداتا (غير مرئي للمستخدم)</p>
+                        <p>• <span class="highlight">&lt;body&gt;</span> - يحتوي على المحتوى المرئي</p>
+                    </div>
+                `,
+                defaultCode: `<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>صفحتي الأولى</title>
+</head>
+<body>
+    <h1>أهلاً بالعالم!</h1>
+    <p>هذه صفحة HTML كاملة.</p>
+</body>
+</html>`,
+                quiz: {
+                    question: "أي عنصر يحتوي على المحتوى المرئي للصفحة؟",
+                    options: ["<<head>", "<body>", "<html>", "<meta>"],
+                    correct: 1
+                }
+            },
+            {
+                title: "العناوين والنصوص",
+                level: "beginner",
+                description: "تنسيق النصوص باستخدام العناوين والفقرات",
+                content: `
+                    <div class="lesson-header">
+                        <span class="lesson-tag badge badge-beginner">مبتدئ</span>
+                        <h1 class="lesson-title">العناوين والنصوص</h1>
+                        <p class="lesson-description">تنسيق النصوص باستخدام العناوين والفقرات</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>📝 عناصر النصوص</h2>
+                        <p>HTML توفر 6 مستويات للعناوين من <span class="highlight">&lt;h1&gt;</span> (الأكبر) إلى <span class="highlight">&lt;h6&gt;</span> (الأصغر):</p>
+                        
+                        <div class="code-block">
+<code>&lt;h1&gt;عنوان رئيسي&lt;/h1&gt;
+&lt;h2&gt;عنوان فرعي&lt;/h2&gt;
+&lt;p&gt;هذه فقرة نصية.&lt;/p&gt;
+&lt;strong&gt;نص عريض&lt;/strong&gt;
+&lt;em&gt;نص مائل&lt;/em&gt;
+&lt;br&gt; &lt;!-- سطر جديد --&gt;
+&lt;hr&gt; &lt;!-- خط أفقي --&gt;</code>
+                        </div>
+
+                        <h3>⚠️ ملاحظة مهمة:</h3>
+                        <p>لا تستخدم العناوين لجعل النص كبيراً فقط! استخدمها لترتيب هرمي للمحتوى. هذا مهم لـ <span class="highlight">SEO</span> وإمكانية الوصول.</p>
+                    </div>
+                `,
+                defaultCode: "<h1>عنوان رئيسي</h1>\n<h2>عنوان فرعي</h2>\n<p>هذه <strong>فقرة</strong> تحتوي على <em>نصوص منسقة</em>.</p>\n<hr>\n<p>سطر جديد بعد الخط الأفقي</p>",
+                quiz: {
+                    question: "كم مستوى للعناوين في HTML؟",
+                    options: ["3", "5", "6", "10"],
+                    correct: 2
+                }
+            },
+            {
+                title: "الروابط والصور",
+                level: "beginner",
+                description: "إضافة الروابط التشعبية والصور إلى صفحاتك",
+                content: `
+                    <div class="lesson-header">
+                        <span class="lesson-tag badge badge-beginner">مبتدئ</span>
+                        <h1 class="lesson-title">الروابط والصور</h1>
+                        <p class="lesson-description">إضافة الروابط التشعبية والصور إلى صفحاتك</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>🔗 الروابط (Links)</h2>
+                        <p>الروابط هي أساس الويب! نستخدم الوسم <span class="highlight">&lt;a&gt;</span> مع الخاصية <span class="highlight">href</span>:</p>
+                        
+                        <div class="code-block">
+<code>&lt;a href="https://example.com"&gt;رابط خارجي&lt;/a&gt;
+&lt;a href="page.html"&gt;رابط داخلي&lt;/a&gt;
+&lt;a href="mailto:email@example.com"&gt;إرسال بريد&lt;/a&gt;
+&lt;a href="#section"&gt;رابط داخلي في الصفحة&lt;/a&gt;</code>
+                        </div>
+
+                        <h2>🖼️ الصور</h2>
+                        <p>الصور تضيف الحيوية لصفحاتك باستخدام <span class="highlight">&lt;img&gt;</span>:</p>
+                        
+                        <div class="code-block">
+<code>&lt;img src="image.jpg" alt="وصف الصورة" width="300"&gt;</code>
+                        </div>
+                        
+                        <p><strong>الخاصية alt مهمة جداً:</strong> تظهر إذا لم تحمل الصورة، وتساعد ذوي الإعاقة البصرية، وتحسن SEO.</p>
+                    </div>
+                `,
+                defaultCode: '<a href="https://example.com">زرني على الإنترنت</a>\n<br><br>\n<img src="https://via.placeholder.com/300x200/6366f1/ffffff?text=HTML+Pro" alt="صورة توضيحية" width="300">',
+                quiz: {
+                    question: "ما الخاصية المستخدمة لتحديد وجهة الرابط؟",
+                    options: ["src", "href", "link", "url"],
+                    correct: 1
+                }
+            },
+            {
+                title: "الجداول",
+                level: "intermediate",
+                description: "تنظيم البيانات في صفوف وأعمدة",
+                content: `
+                    <div class="lesson-header">
+                        <span class="lesson-tag badge badge-intermediate">متوسط</span>
+                        <h1 class="lesson-title">الجداول</h1>
+                        <p class="lesson-description">تنظيم البيانات في صفوف وأعمدة</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>📊 بناء الجداول</h2>
+                        <p>الجداول تُنشأ باستخدام مجموعة من الوسوم:</p>
+                        
+                        <div class="code-block">
+<code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;الاسم&lt;/th&gt;
+      &lt;th&gt;العمر&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;أحمد&lt;/td&gt;
+      &lt;td&gt;25&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code>
+                        </div>
+
+                        <h3>🔑 المفاهيم:</h3>
+                        <p>• <span class="highlight">&lt;table&gt;</span> - حاوية الجدول</p>
+                        <p>• <span class="highlight">&lt;tr&gt;</span> - صف (Table Row)</p>
+                        <p>• <span class="highlight">&lt;th&gt;</span> - خلية عنوان (Table Header)</p>
+                        <p>• <span class="highlight">&lt;td&gt;</span> - خلية بيانات (Table Data)</p>
+                        <p>• <span class="highlight">&lt;thead&gt;</span> و <span class="highlight">&lt;tbody&gt;</span> - تقسيم هيكلي</p>
+                    </div>
+                `,
+                defaultCode: `<table border="1" cellpadding="10">
+  <tr>
+    <th>المنتج</th>
+    <th>السعر</th>
+  </tr>
+  <tr>
+    <td>لابتوب</td>
+    <td>5000 ريال</td>
+  </tr>
+  <tr>
+    <td>هاتف</td>
+    <td>2000 ريال</td>
+  </tr>
+</table>`,
+                quiz: {
+                    question: "أي وسم يُستخدم لخلية عنوان في الجدول؟",
+                    options: ["<<td>", "<tr>", "<th>", "<table>"],
+                    correct: 2
+                }
+            },
+            {
+                title: "النماذج Forms",
+                level: "intermediate",
+                description: "إنشاء نماذج تفاعلية لإدخال البيانات",
+                content: `
+                    <div class="lesson-header">
+                        <span class="lesson-tag badge badge-intermediate">متوسط</span>
+                        <h1 class="lesson-title">النماذج Forms</h1>
+                        <p class="lesson-description">إنشاء نماذج تفاعلية لإدخال البيانات</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>📝 عناصر النماذج</h2>
+                        <p>النماذج تتيح للمستخدمين إدخال البيانات:</p>
+                        
+                        <div class="code-block">
+<code>&lt;form action="/submit" method="POST"&gt;
+  &lt;label for="name"&gt;الاسم:&lt;/label&gt;
+  &lt;input type="text" id="name" name="name"&gt;
+  
+  &lt;label for="email"&gt;البريد:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email"&gt;
+  
+  &lt;label for="message"&gt;الرسالة:&lt;/label&gt;
+  &lt;textarea id="message" name="message"&gt;&lt;/textarea&gt;
+  
+  &lt;button type="submit"&gt;إرسال&lt;/button&gt;
+&lt;/form&gt;</code>
+                        </div>
+
+                        <h3>🎨 أنواع الإدخال:</h3>
+                        <p>• <span class="highlight">text</span> - نص عادي</p>
+                        <p>• <span class="highlight">email</span> - بريد إلكتروني (مع تحقق تلقائي)</p>
+                        <p>• <span class="highlight">password</span> - كلمة مرور مخفية</p>
+                        <p>• <span class="highlight">number</span> - أرقام فقط</p>
+                        <p>• <span class="highlight">date</span> - تاريخ</p>
+                        <p>• <span class="highlight">checkbox</span> - مربع اختيار</p>
+                        <p>• <span class="highlight">radio</span> - زر اختيار واحد</p>
+                    </div>
+                `,
+                defaultCode: `<form>
+  <label>الاسم: <input type="text" placeholder="اكتب اسمك"></label>
+  <br><br>
+  <label>البريد: <input type="email" placeholder="example@mail.com"></label>
+  <br><br>
+  <label>التعليق:</label><br>
+  <textarea rows="4" cols="30" placeholder="اكتب تعليقك هنا..."></textarea>
+  <br><br>
+  <button type="submit">إرسال ✉️</button>
+</form>`,
+                quiz: {
+                    question: "أي نوع input يُستخدم لإخفاء النص (كلمات المرور)؟",
+                    options: ["hidden", "secret", "password", "private"],
+                    correct: 2
+                }
+            },
+            {
+                title: "القوائم",
+                level: "intermediate",
+                description: "إنشاء قوائم مرتبة وغير مرتبة ووصفية",
+                content: `
+                    <div class="lesson-header">
+                        <span class="lesson-tag badge badge-intermediate">متوسط</span>
+                        <h1 class="lesson-title">القوائم</h1>
+                        <p class="lesson-description">إنشاء قوائم مرتبة وغير مرتبة ووصفية</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>📋 أنواع القوائم</h2>
+                        
+                        <h3>1. القائمة غير المرتبة (Unordered)</h3>
+                        <div class="code-block">
+<code>&lt;ul&gt;
+  &lt;li&gt;عنصر أول&lt;/li&gt;
+  &lt;li&gt;عنصر ثاني&lt;/li&gt;
+  &lt;li&gt;عنصر ثالث&lt;/li&gt;
+&lt;/ul&gt;</code>
+                        </div>
+
+                        <h3>2. القائمة المرتبة (Ordered)</h3>
+                        <div class="code-block">
+<code>&lt;ol&gt;
+  &lt;li&gt;الخطوة الأولى&lt;/li&gt;
+  &lt;li&gt;الخطوة الثانية&lt;/li&gt;
+  &lt;li&gt;الخطوة الثالثة&lt;/li&gt;
+&lt;/ol&gt;</code>
+                        </div>
+
+                        <h3>3. القائمة الوصفية (Description)</h3>
+                        <div class="code-block">
+<code>&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;لغة ترميز النصوص التشعبية&lt;/dd&gt;
+&lt;/dl&gt;</code>
+                        </div>
+                    </div>
+                `,
+                defaultCode: `<h3>🛒 قائمة مشترياتي:</h3>
+<ul>
+  <li>🍎 تفاح</li>
+  <li>🍌 موز</li>
+  <li>🥛 حليب</li>
+</ul>
+
+<h3>🎯 خطوات النجاح:</h3>
+<<ol>
+  <li>التعلم المستمر</li>
+  <li>الممارسة اليومية</li>
+  <li>مشاركة المعرفة</li>
+</ol>`,
+                quiz: {
+                    question: "أي وسم يُستخدم للقائمة المرتبة (مرقمة)؟",
+                    options: ["<<ul>", "<ol>", "<li>", "<dl>"],
+                    correct: 1
+                }
+            },
+            {
+                title: "Semantic HTML",
+                level: "advanced",
+                description: "استخدام الوسوم الدلالية لتحسين المعنى والوصول",
+                content: `
+                    <div class="lesson-header">
+                        <span class="lesson-tag badge badge-advanced">متقدم</span>
+                        <h1 class="lesson-title">Semantic HTML</h1>
+                        <p class="lesson-description">استخدام الوسوم الدلالية لتحسين المعنى والوصول</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>🧠 ما هي الوسوم الدلالية؟</h2>
+                        <p>الوسوم الدلالية <span class="highlight">(Semantic Elements)</span> توضح معنى المحتوى للمتصفح والمطورين، بدلاً من استخدام &lt;div&gt; فقط.</p>
+
+                        <div class="code-block">
+<code>&lt;header&gt; - رأس الصفحة/القسم
+&lt;nav&gt; - قائمة التنقل
+&lt;main&gt; - المحتوى الرئيسي
+&lt;article&gt; - مقال مستقل
+&lt;section&gt; - قسم من المحتوى
+&lt;aside&gt; - محتوى جانبي
+&lt;footer&gt; - تذييل الصفحة
+&lt;figure&gt; و &lt;figcaption&gt; - صورة مع وصف</code>
+                        </div>
+
+                        <h3>✨ الفوائد:</h3>
+                        <p>• <strong>SEO:</strong> محركات البحث تفهم هيكل الصفحة</p>
+                        <p>• <strong>إمكانية الوصول:</strong> قارئات الشاشة تتنقل بسهولة</p>
+                        <p>• <strong>صيانة الكود:</strong> أسهل في القراءة والفهم</p>
+                    </div>
+                `,
+                defaultCode: `<header>
+  <h1>مدونتي التقنية</h1>
+  <nav>
+    <a href="#">الرئيسية</a> | 
+    <a href="#">المقالات</a>
+  </nav>
+</header>
+
+<<main>
+  <article>
+    <h2>مقال: مقدمة في HTML5</h2>
+    <p>HTML5 جلب ثورة في بناء المواقع...</p>
+  </article>
+  
+  <aside>
+    <h3>مقالات مشابهة</h3>
+    <ul>
+      <li>CSS3 للمبتدئين</li>
+      <li>JavaScript أساسيات</li>
+    </ul>
+  </aside>
+</main>
+
+<<footer>
+  <p>© 2024 مدونتي التقنية</p>
+</footer>`,
+                quiz: {
+                    question: "أي وسم دلالي يُستخدم للمحتوى الرئيسي للصفحة؟",
+                    options: ["<<section>", "<article>", "<main>", "<div>"],
+                    correct: 2
+                }
+            },
+            {
+                title: "الوسائط المتعددة",
+                level: "advanced",
+                description: "إدراج الفيديو والصوت والرسومات المتجهة",
+                content: `
+                    <div class="lesson-header">
+                        <span class="lesson-tag badge badge-advanced">متقدم</span>
+                        <h1 class="lesson-title">الوسائط المتعددة</h1>
+                        <p class="lesson-description">إدراج الفيديو والصوت والرسومات المتجهة</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>🎵 الصوت</h2>
+                        <div class="code-block">
+<code>&lt;audio controls&gt;
+  &lt;source src="music.mp3" type="audio/mpeg"&gt;
+  &lt;source src="music.ogg" type="audio/ogg"&gt;
+  المتصفح لا يدعم عنصر الصوت.
+&lt;/audio&gt;</code>
+                        </div>
+
+                        <h2>🎬 الفيديو</h2>
+                        <div class="code-block">
+<code>&lt;video width="320" height="240" controls poster="preview.jpg"&gt;
+  &lt;source src="movie.mp4" type="video/mp4"&gt;
+  &lt;track src="subtitles.vtt" kind="subtitles" srclang="ar" label="Arabic"&gt;
+&lt;/video&gt;</code>
+                        </div>
+
+                        <h2>🎨 SVG - الرسومات المتجهة</h2>
+                        <div class="code-block">
+<code>&lt;svg width="100" height="100"&gt;
+  &lt;circle cx="50" cy="50" r="40" stroke="green" 
+          stroke-width="4" fill="yellow" /&gt;
+&lt;/svg&gt;</code>
+                        </div>
+                    </div>
+                `,
+                defaultCode: `<audio controls style="width: 100%; margin-bottom: 20px;">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  المتصفح لا يدعم الصوت
+</audio>
+
+<<svg width="200" height="200" style="display: block; margin: 20px auto;">
+  <circle cx="100" cy="100" r="80" stroke="#6366f1" stroke-width="5" fill="#e0e7ff" />
+  <text x="100" y="110" text-anchor="middle" fill="#6366f1" font-size="24" font-weight="bold">SVG</text>
+</svg>`,
+                quiz: {
+                    question: "ما الصيغة المستخدمة لملفات ترجمة الفيديو؟",
+                    options: [".srt", ".vtt", ".txt", ".sub"],
+                    correct: 1
+                }
+            },
+            {
+                title: "أفضل الممارسات",
+                level: "advanced",
+                description: "نصائح احترافية لكتابة HTML نظيف وفعال",
+                content: `
+                    <div class="lesson-header">
+                        <span class="lesson-tag badge badge-advanced">متقدم</span>
+                        <h1 class="lesson-title">أفضل الممارسات</h1>
+                        <p class="lesson-description">نصائح احترافية لكتابة HTML نظيف وفعال</p>
+                    </div>
+
+                    <div class="content-section">
+                        <h2>⭐ قواعد ذهبية</h2>
+                        
+                        <h3>1. استخدم DOCTYPE الصحيح</h3>
+                        <p>دائماً ابدأ بـ <span class="highlight">&lt;!DOCTYPE html&gt;</span> لضمان وضع المعايير.</p>
+
+                        <h3>2. اجعل HTML خالياً من التنسيق</h3>
+                        <p>لا تستخدم وسوم التنسيق القديمة مثل <span class="highlight">&lt;font&gt;</span> أو <span class="highlight">&lt;center&gt;</span>. استخدم CSS بدلاً منها.</p>
+
+                        <h3>3. اكتب alt للصور</h3>
+                        <p>دائماً أضف <span class="highlight">alt</span> وصفية للصور لإمكانية الوصول.</p>
+
+                        <h3>4. استخدم الوسوم الدلالية</h3>
+                        <p>تجنب &lt;div&gt; و &lt;span&gt; حيثما أمكن. استخدم &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;...</p>
+
+                        <h3>5. تحقق من صحة الكود</h3>
+                        <p>استخدم <a href="https://validator.w3.org" target="_blank">W3C Validator</a> للتحقق من صحة HTML.</p>
+
+                        <h3>6. اهتم بـ SEO</h3>
+                        <p>• استخدم عنوان واحد &lt;h1&gt; فقط في الصفحة</p>
+                        <p>• اجعل الروابط وصفية (لا تكتب "اضغط هنا")</p>
+                        <p>• استخدم الميتا تاجات الوصفية</p>
+
+                        <div class="code-block">
+<code>&lt;meta name="description" content="وصف الصفحة للبحث"&gt;
+&lt;meta name="keywords" content="HTML, تعلم, برمجة"&gt;
+&lt;meta name="author" content="اسمك"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>
+                        </div>
+                    </div>
+
+                    <div class="content-section" style="text-align: center; padding: 3rem; background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(236,72,153,0.1)); border-radius: var(--radius); margin-top: 2rem;">
+                        <h2 style="font-size: 2rem; margin-bottom: 1rem;">🎉 مبروك!</h2>
+                        <p style="font-size: 1.2rem;">لقد أكملت دورة HTML Pro بنجاح. أنت الآن جاهز لبناء مواقع ويب احترافية!</p>
+                        <p style="margin-top: 1rem; color: var(--text-secondary);">الخطوة التالية: تعلم CSS لتنسيق صفحاتك 🎨</p>
+                    </div>
+                `,
+                defaultCode: `<!-- HTML نظيف وفعال -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="صفحة HTML احترافية">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة احترافية</title>
+</head>
+<body>
+    <header>
+        <h1>موقعي الاحترافي</h1>
+    </header>
+    <main>
+        <article>
+            <h2>مقال مميز</h2>
+            <p>محتوى عالي الجودة...</p>
+        </article>
+    </main>
+    <footer>
+        <p>© 2024 - جميع الحقوق محفوظة</p>
+    </footer>
+</body>
+</html>`,
+                quiz: {
+                    question: "أي وسم يُستخدم لتحديد وصف الصفحة لمحركات البحث؟",
+                    options: ["<<title>", "<meta name='description'>", "<head>", "<summary>"],
+                    correct: 1
+                }
+            }
+        ];
+
+        let currentLesson = 0;
+        let completedLessons = JSON.parse(localStorage.getItem('htmlProProgress') || '[]');
+        let quizAnswered = false;
+
+        // Initialize
+        function init() {
+            const savedTheme = localStorage.getItem('htmlProTheme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+            
+            updateSidebar();
+            loadLesson(0);
+            updateProgress();
+        }
+
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            
+            if (isDark) {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('htmlProTheme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('htmlProTheme', 'dark');
+            }
+        }
+
+        // Load Lesson
+        function loadLesson(index) {
+            currentLesson = index;
+            const lesson = lessons[index];
+            const mainContent = document.getElementById('mainContent');
+            
+            // Update sidebar active state
+            document.querySelectorAll('.lesson-item').forEach((item, i) => {
+                item.classList.remove('active');
+                if (i === index) item.classList.add('active');
+            });
+
+            // Build content
+            mainContent.innerHTML = lesson.content + `
+                <div class="content-section">
+                    <h2>💻 المحرر التفاعلي</h2>
+                    <p>اكتب الكود في الجزء الأيسر وشاهد النتيجة مباشرة في الجزء الأيمن:</p>
+                    
+                    <div class="editor-container">
+                        <div class="editor-panel preview-panel">
+                            <div class="panel-header">
+                                <span>👁️</span>
+                                <span>المعاينة المباشرة</span>
+                            </div>
+                            <iframe class="preview-frame" id="previewFrame"></iframe>
+                        </div>
+                        <div class="editor-panel">
+                            <div class="panel-header">
+                                <span>✏️</span>
+                                <span>محرر الكود</span>
+                            </div>
+                            <textarea class="code-editor" id="codeEditor" spellcheck="false">${lesson.defaultCode}</textarea>
+                            <div class="editor-toolbar">
+                                <button class="toolbar-btn" onclick="runCode()">▶️ تشغيل</button>
+                                <button class="toolbar-btn" onclick="resetCode()">🔄 إعادة</button>
+                                <button class="toolbar-btn" onclick="formatCode()">✨ تنسيق</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-container" id="quizContainer">
+                    <div class="quiz-title">
+                        <span>🧪</span>
+                        <span>اختبار سريع</span>
+                    </div>
+                    <div class="quiz-question">${lesson.quiz.question}</div>
+                    <div class="quiz-options" id="quizOptions">
+                        ${lesson.quiz.options.map((opt, i) => `
+                            <div class="quiz-option" onclick="selectAnswer(${i})">
+                                <span>${String.fromCharCode(1616 + i)})</span>
+                                <span>${opt}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="quiz-result" id="quizResult"></div>
+                </div>
+
+                <div class="lesson-nav">
+                    <button class="btn btn-secondary" onclick="prevLesson()" ${index === 0 ? 'disabled style="opacity:0.5"' : ''}>
+                        ← الدرس السابق
+                    </button>
+                    <button class="btn btn-primary" onclick="nextLesson()" ${index === lessons.length - 1 ? 'disabled style="opacity:0.5"' : ''}>
+                        الدرس التالي →
+                    </button>
+                </div>
+            `;
+
+            quizAnswered = false;
+            runCode();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Code Editor Functions
+        function runCode() {
+            const code = document.getElementById('codeEditor').value;
+            const frame = document.getElementById('previewFrame');
+            const doc = frame.contentDocument || frame.contentWindow.document;
+            
+            doc.open();
+            doc.write(code);
+            doc.close();
+        }
+
+        function resetCode() {
+            document.getElementById('codeEditor').value = lessons[currentLesson].defaultCode;
+            runCode();
+        }
+
+        function formatCode() {
+            const editor = document.getElementById('codeEditor');
+            let code = editor.value;
+            
+            // Simple formatting
+            code = code.replace(/></g, '>\n<<').replace(/}\s*{/g, '}\n{');
+            editor.value = code;
+            runCode();
+        }
+
+        // Quiz Functions
+        function selectAnswer(index) {
+            if (quizAnswered) return;
+            
+            const options = document.querySelectorAll('.quiz-option');
+            const result = document.getElementById('quizResult');
+            const isCorrect = index === lessons[currentLesson].quiz.correct;
+            
+            quizAnswered = true;
+            
+            options.forEach((opt, i) => {
+                opt.classList.remove('selected');
+                if (i === lessons[currentLesson].quiz.correct) {
+                    opt.classList.add('correct');
+                } else if (i === index && !isCorrect) {
+                    opt.classList.add('wrong');
+                }
+            });
+            
+            result.classList.add('show');
+            
+            if (isCorrect) {
+                result.classList.add('success');
+                result.textContent = '🎉 إجابة صحيحة! أحسنت!';
+                createConfetti();
+                markLessonComplete(currentLesson);
+            } else {
+                result.classList.add('error');
+                result.textContent = '❌ إجابة خاطئة. حاول مرة أخرى في المراجعة!';
+            }
+        }
+
+        function markLessonComplete(index) {
+            if (!completedLessons.includes(index)) {
+                completedLessons.push(index);
+                localStorage.setItem('htmlProProgress', JSON.stringify(completedLessons));
+                updateSidebar();
+                updateProgress();
+            }
+        }
+
+        function updateSidebar() {
+            document.querySelectorAll('.lesson-item').forEach((item, i) => {
+                const status = item.querySelector('.lesson-status');
+                if (completedLessons.includes(i)) {
+                    item.classList.add('completed');
+                    status.textContent = '✓';
+                } else {
+                    item.classList.remove('completed');
+                    status.textContent = '○';
+                }
+            });
+        }
+
+        function updateProgress() {
+            const percent = Math.round((completedLessons.length / lessons.length) * 100);
+            document.getElementById('progressBar').style.width = percent + '%';
+            
+            const statElement = document.getElementById('currentProgress');
+            if (statElement) statElement.textContent = percent + '%';
+        }
+
+        function nextLesson() {
+            if (currentLesson < lessons.length - 1) {
+                loadLesson(currentLesson + 1);
+            }
+        }
+
+        function prevLesson() {
+            if (currentLesson > 0) {
+                loadLesson(currentLesson - 1);
+            }
+        }
+
+        function resetProgress() {
+            if (confirm('هل أنت متأكد من إعادة ضبط التقدم؟')) {
+                completedLessons = [];
+                localStorage.removeItem('htmlProProgress');
+                updateSidebar();
+                updateProgress();
+                loadLesson(0);
+            }
+        }
+
+        // Confetti Effect
+        function createConfetti() {
+            const colors = ['#6366f1', '#ec4899', '#10b981', '#f59e0b', '#3b82f6'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 4000);
+            }
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                runCode();
+            }
+        });
+
+        // Initialize app
+        init();
+    </script>
+</body>
+</html>
