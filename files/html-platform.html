@@ -659,7 +659,333 @@
             z-index: 9999;
             animation: confetti 3s ease-out forwards;
         }
-    </style>
+    
+        /* ============================================
+           RESPONSIVE FIXES — MOBILE OPTIMIZATIONS
+           ============================================ */
+
+        /* Tablets and below (1024px) */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 90px 1rem 2rem;
+            }
+            .sidebar {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 90;
+                background: var(--surface);
+                height: calc(100vh - 70px);
+                overflow-y: auto;
+                border-radius: 0;
+                display: none;
+                box-shadow: var(--shadow);
+            }
+            .sidebar.open {
+                display: block !important;
+            }
+            .main-content {
+                order: 1;
+            }
+            .editor-container {
+                grid-template-columns: 1fr;
+            }
+            .preview-panel {
+                border-right: none;
+                border-top: 2px solid var(--border);
+                order: -1;
+            }
+        }
+
+        /* Phones (768px and below) */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.75rem 1rem;
+                height: 60px;
+            }
+            .logo {
+                font-size: 1.2rem;
+            }
+            .nav-buttons {
+                gap: 0.5rem;
+            }
+            .btn {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            .btn-secondary {
+                display: none; /* Hide reset button on mobile */
+            }
+            .theme-toggle {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .progress-container {
+                top: 60px;
+            }
+            .container {
+                padding: 80px 0.75rem 2rem;
+                gap: 1rem;
+            }
+            .sidebar {
+                top: 60px;
+                height: calc(100vh - 60px);
+                padding: 1rem;
+            }
+            .main-content {
+                padding: 1.25rem;
+            }
+            .lesson-header {
+                margin-bottom: 1.5rem;
+                padding-bottom: 1rem;
+            }
+            .lesson-title {
+                font-size: 1.5rem;
+            }
+            .lesson-description {
+                font-size: 0.95rem;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+            .stat-card {
+                padding: 1rem;
+            }
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            .content-section {
+                margin: 1.5rem 0;
+            }
+            .content-section h2 {
+                font-size: 1.2rem;
+            }
+            .content-section h3 {
+                font-size: 1.05rem;
+            }
+            .content-section p {
+                font-size: 0.9rem;
+                line-height: 1.7;
+            }
+            .code-block {
+                padding: 1rem;
+                font-size: 0.8rem;
+                line-height: 1.5;
+                white-space: pre-wrap;
+                word-break: break-word;
+                overflow-wrap: break-word;
+                overflow-x: hidden;
+            }
+            .editor-container {
+                margin: 1.25rem 0;
+                gap: 0.75rem;
+            }
+            .code-editor {
+                min-height: 200px;
+                padding: 0.75rem;
+                font-size: 0.85rem;
+            }
+            .preview-frame {
+                height: 250px;
+            }
+            .panel-header {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            .editor-toolbar {
+                padding: 0.4rem;
+                gap: 0.4rem;
+            }
+            .toolbar-btn {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            .quiz-container {
+                padding: 1.25rem;
+                margin: 1.5rem 0;
+            }
+            .quiz-title {
+                font-size: 1.1rem;
+            }
+            .quiz-question {
+                font-size: 1rem;
+            }
+            .quiz-option {
+                padding: 0.875rem 1rem;
+                font-size: 0.9rem;
+            }
+            .lesson-nav {
+                flex-direction: column-reverse;
+                gap: 0.75rem;
+                margin-top: 2rem;
+                padding-top: 1.5rem;
+            }
+            .lesson-nav .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            .highlight {
+                word-break: break-word;
+                white-space: normal;
+                display: inline-block;
+            }
+        }
+
+        /* Small phones (640px and below) */
+        @media (max-width: 640px) {
+            .logo span:last-child {
+                display: none; /* Hide text, show icon only */
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .lesson-title {
+                font-size: 1.3rem;
+            }
+            .code-block {
+                font-size: 0.75rem;
+                padding: 0.875rem;
+            }
+            .code-editor {
+                font-size: 0.8rem;
+                min-height: 180px;
+            }
+            .preview-frame {
+                height: 220px;
+            }
+            .quiz-option {
+                padding: 0.75rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Very small phones (380px and below) */
+        @media (max-width: 380px) {
+            .header {
+                padding: 0.5rem 0.75rem;
+            }
+            .container {
+                padding: 80px 0.5rem 1rem;
+            }
+            .main-content {
+                padding: 1rem;
+            }
+            .lesson-title {
+                font-size: 1.15rem;
+            }
+            .content-section h2 {
+                font-size: 1.05rem;
+            }
+            .code-block {
+                font-size: 0.7rem;
+                padding: 0.75rem;
+            }
+            .code-editor {
+                font-size: 0.75rem;
+                padding: 0.5rem;
+            }
+            .quiz-container {
+                padding: 1rem;
+            }
+            .quiz-question {
+                font-size: 0.9rem;
+            }
+            .quiz-option {
+                font-size: 0.8rem;
+                padding: 0.625rem 0.75rem;
+            }
+        }
+
+        /* Landscape mode on phones */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .sidebar {
+                height: calc(100vh - 60px);
+            }
+            .code-editor {
+                min-height: 150px;
+            }
+            .preview-frame {
+                height: 180px;
+            }
+        }
+
+        /* Touch device improvements */
+        @media (pointer: coarse) {
+            .lesson-item {
+                padding: 0.875rem 1rem;
+                min-height: 44px;
+            }
+            .quiz-option {
+                padding: 1rem 1.25rem;
+                min-height: 48px;
+            }
+            .btn {
+                min-height: 44px;
+            }
+            .toolbar-btn {
+                min-height: 36px;
+                padding: 0.4rem 0.75rem;
+            }
+            .theme-toggle {
+                min-width: 44px;
+                min-height: 44px;
+            }
+        }
+
+        /* Sidebar overlay for mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 89;
+            backdrop-filter: blur(2px);
+        }
+        .sidebar-overlay.show {
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .sidebar-overlay {
+                top: 60px;
+            }
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius);
+            border: 2px solid var(--border);
+            background: var(--surface);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        .mobile-menu-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        @media (max-width: 1024px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+        }
+</style>
+<base target="_blank">
 <base target="_blank">
 </head>
 <body>
@@ -670,6 +996,7 @@
             <span>HTML Pro</span>
         </div>
         <div class="nav-buttons">
+            <button class="mobile-menu-btn" onclick="toggleSidebar()" title="القائمة">☰</button>
             <button class="theme-toggle" onclick="toggleTheme()" title="تبديل الوضع الليلي">🌙</button>
             <button class="btn btn-secondary" onclick="resetProgress()">🔄 إعادة التقدم</button>
         </div>
@@ -682,6 +1009,7 @@
 
     <!-- Main Container -->
     <div class="container">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-title">
@@ -1321,7 +1649,47 @@
         let completedLessons = JSON.parse(localStorage.getItem('htmlProProgress') || '[]');
         let quizAnswered = false;
 
-        // Initialize
+        // Sidebar Functions
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isOpen = sidebar.classList.contains('open');
+
+    if (isOpen) {
+        closeSidebar();
+    } else {
+        sidebar.classList.add('open');
+        sidebar.style.display = 'block';
+        if (overlay) overlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    if (window.innerWidth <= 1024) {
+        sidebar.style.display = 'none';
+    }
+}
+
+window.addEventListener('resize', () => {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (window.innerWidth > 1024) {
+        sidebar.style.display = '';
+        sidebar.classList.remove('open');
+        if (overlay) overlay.classList.remove('show');
+        document.body.style.overflow = '';
+    } else if (!sidebar.classList.contains('open')) {
+        sidebar.style.display = 'none';
+    }
+});
+
+// Initialize
         function init() {
             const savedTheme = localStorage.getItem('htmlProTheme');
             if (savedTheme === 'dark') {
@@ -1350,6 +1718,7 @@
         // Load Lesson
         function loadLesson(index) {
             currentLesson = index;
+            closeSidebar();
             const lesson = lessons[index];
             const mainContent = document.getElementById('mainContent');
             
@@ -1554,7 +1923,47 @@
             }
         });
 
-        // Initialize app
+        // Sidebar Functions
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isOpen = sidebar.classList.contains('open');
+
+    if (isOpen) {
+        closeSidebar();
+    } else {
+        sidebar.classList.add('open');
+        sidebar.style.display = 'block';
+        if (overlay) overlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    if (window.innerWidth <= 1024) {
+        sidebar.style.display = 'none';
+    }
+}
+
+window.addEventListener('resize', () => {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (window.innerWidth > 1024) {
+        sidebar.style.display = '';
+        sidebar.classList.remove('open');
+        if (overlay) overlay.classList.remove('show');
+        document.body.style.overflow = '';
+    } else if (!sidebar.classList.contains('open')) {
+        sidebar.style.display = 'none';
+    }
+});
+
+// Initialize app
         init();
     </script>
 </body>
