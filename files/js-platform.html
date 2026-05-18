@@ -1265,14 +1265,314 @@
                 rgba(0,0,0,0.3) 4px
             );
         }
-    </style>
+    
+        /* ============================================
+           RESPONSIVE FIXES — MOBILE OPTIMIZATIONS
+           ============================================ */
+
+        /* Small tablets and large phones (768px - 1024px) */
+        @media (max-width: 1024px) {
+            .app { 
+                grid-template-columns: 1fr; 
+                grid-template-areas: "header" "main"; 
+            }
+            .sidebar { 
+                display: none; 
+                position: fixed; 
+                top: 64px; 
+                left: 0; 
+                right: 0; 
+                bottom: 0; 
+                z-index: 90; 
+                background: var(--bg-surface); 
+                height: calc(100vh - 64px);
+                overflow-y: auto;
+                border-left: none;
+                border-right: none;
+                box-shadow: var(--shadow-md);
+            }
+            .sidebar.open { display: block !important; }
+            .mobile-toggle { display: flex !important; }
+            .main { padding: 1.25rem; }
+        }
+
+        /* Phones (max-width: 640px) */
+        @media (max-width: 640px) {
+            .header {
+                padding: 0 0.75rem;
+            }
+            .brand {
+                font-size: 1.1rem;
+            }
+            .brand-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+            .progress-pill {
+                display: none; /* Hide progress on very small screens */
+            }
+            .header-center {
+                gap: 0.5rem;
+            }
+            .main {
+                padding: 0.75rem;
+                height: calc(100vh - 56px);
+            }
+            .header {
+                height: 56px;
+            }
+            .app {
+                grid-template-rows: 56px 1fr;
+            }
+            .sidebar {
+                top: 56px;
+                height: calc(100vh - 56px);
+            }
+            .lesson-title {
+                font-size: 1.6rem;
+            }
+            .lesson-desc {
+                font-size: 0.95rem;
+            }
+            .card {
+                padding: 1.25rem;
+                border-radius: var(--radius-md);
+                margin-bottom: 1rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .code-block {
+                padding: 0.875rem;
+                font-size: 0.82rem;
+            }
+            .playground {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+                min-height: auto;
+            }
+            .pg-panel {
+                min-height: 300px;
+            }
+            .code-editor {
+                min-height: 160px;
+                padding: 0.875rem;
+                font-size: 0.85rem;
+            }
+            .console-body {
+                max-height: 180px;
+                min-height: 100px;
+                padding: 0.75rem;
+                font-size: 0.82rem;
+            }
+            .challenge-wrap {
+                padding: 1.25rem;
+            }
+            .challenge-title {
+                font-size: 1.15rem;
+            }
+            .challenge-editor {
+                min-height: 120px;
+                padding: 0.875rem;
+                font-size: 0.85rem;
+            }
+            .test-case {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+            }
+            .challenge-actions {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                width: 100%;
+                justify-content: center;
+            }
+            .quiz-box {
+                padding: 1.25rem;
+            }
+            .quiz-head-title {
+                font-size: 1.2rem;
+            }
+            .quiz-question {
+                font-size: 1rem;
+            }
+            .quiz-option {
+                padding: 0.875rem 1rem;
+                font-size: 0.9rem;
+            }
+            .quiz-letter {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+            .footer-nav {
+                flex-direction: column-reverse;
+                gap: 0.75rem;
+                margin-top: 2rem;
+                padding-top: 1.5rem;
+            }
+            .nav-arrow {
+                width: 100%;
+                justify-content: center;
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            .completion {
+                padding: 2rem 1rem;
+            }
+            .completion h2 {
+                font-size: 1.4rem;
+            }
+            .final-stats {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            .info-block {
+                padding: 1rem;
+                gap: 0.75rem;
+            }
+            .info-block-icon {
+                font-size: 1.2rem;
+            }
+            .tip-block {
+                padding: 0.875rem 1rem;
+                font-size: 0.9rem;
+            }
+            .icon-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .lesson-meta {
+                gap: 0.5rem;
+            }
+            .tag {
+                padding: 0.25rem 0.6rem;
+                font-size: 0.7rem;
+            }
+            .lesson-count {
+                font-size: 0.75rem;
+            }
+            .code-wrap {
+                margin: 1rem 0;
+            }
+            .code-head {
+                padding: 0.5rem 0.75rem;
+            }
+            .code-copy {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.7rem;
+            }
+            .card-body {
+                font-size: 0.95rem;
+                line-height: 1.8;
+            }
+            .card-body p {
+                margin-bottom: 0.75rem;
+            }
+            .hl {
+                padding: 0.1rem 0.35rem;
+                font-size: 0.85em;
+            }
+        }
+
+        /* Very small phones (max-width: 380px) */
+        @media (max-width: 380px) {
+            .brand span {
+                display: none; /* Hide brand text, show only icon */
+            }
+            .main {
+                padding: 0.5rem;
+            }
+            .card {
+                padding: 1rem;
+                border-radius: var(--radius-sm);
+            }
+            .lesson-title {
+                font-size: 1.35rem;
+            }
+            .pg-head {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            .pg-btn {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            .code-editor {
+                min-height: 140px;
+                padding: 0.75rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Landscape phones */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .sidebar {
+                height: calc(100vh - 56px);
+            }
+            .playground {
+                min-height: 300px;
+            }
+            .pg-panel {
+                min-height: 250px;
+            }
+        }
+
+        /* Touch improvements */
+        @media (pointer: coarse) {
+            .lesson-btn {
+                padding: 0.85rem 1rem;
+            }
+            .quiz-option {
+                padding: 1rem 1.25rem;
+            }
+            .nav-arrow {
+                padding: 1rem 1.5rem;
+            }
+            .icon-btn {
+                min-width: 44px;
+                min-height: 44px;
+            }
+            .pg-btn {
+                min-height: 36px;
+            }
+        }
+
+        /* Sidebar overlay for mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 89;
+            backdrop-filter: blur(2px);
+        }
+        .sidebar-overlay.show {
+            display: block;
+        }
+        @media (max-width: 640px) {
+            .sidebar-overlay {
+                top: 56px;
+            }
+        }
+</style>
+<base target="_blank">
 <base target="_blank">
 </head>
 <body>
     <div class="scanlines"></div>
     <div class="toast" id="toast"></div>
 
-    <div class="app">
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+<div class="app">
         <!-- Header -->
         <header class="header">
             <div class="brand" onclick="goHome()">
@@ -2626,6 +2926,7 @@ console.log(safeParse('not json'));`
         // ============================================
         function loadLesson(index) {
             currentIdx = index;
+            closeSidebar(); // Close mobile sidebar when navigating
             const lesson = lessons[index];
             const main = document.getElementById('mainContent');
             quizAnswered = false;
@@ -2967,10 +3268,46 @@ console.log(safeParse('not json'));`
             if (currentIdx > 0) loadLesson(currentIdx - 1);
         }
         function goHome() { loadLesson(0); }
+
         function toggleSidebar() {
             const sb = document.getElementById('sidebar');
-            sb.style.display = sb.style.display === 'block' ? 'none' : 'block';
+            const overlay = document.getElementById('sidebarOverlay');
+            const isOpen = sb.classList.contains('open');
+            if (isOpen) {
+                closeSidebar();
+            } else {
+                sb.classList.add('open');
+                sb.style.display = 'block';
+                overlay.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
         }
+
+        function closeSidebar() {
+            const sb = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sb.classList.remove('open');
+            overlay.classList.remove('show');
+            document.body.style.overflow = '';
+            // Only hide if still in mobile view
+            if (window.innerWidth <= 1024) {
+                sb.style.display = 'none';
+            }
+        }
+
+        // Close sidebar when resizing to desktop
+        window.addEventListener('resize', () => {
+            const sb = document.getElementById('sidebar');
+            if (window.innerWidth > 1024) {
+                sb.style.display = '';
+                sb.classList.remove('open');
+                document.getElementById('sidebarOverlay').classList.remove('show');
+                document.body.style.overflow = '';
+            } else if (!sb.classList.contains('open')) {
+                sb.style.display = 'none';
+            }
+        });
+
 
         // ============================================
         // UTILITIES
