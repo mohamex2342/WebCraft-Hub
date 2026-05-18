@@ -1563,6 +1563,129 @@
                 top: 56px;
             }
         }
+
+        /* ============================================
+           MOBILE FORMATTING FIXES — Variables Section & Global
+           ============================================ */
+
+        @media (max-width: 640px) {
+            /* Force code to wrap on mobile instead of overflowing */
+            .code-block {
+                white-space: pre-wrap !important;
+                word-break: break-word !important;
+                overflow-wrap: break-word !important;
+                font-size: 0.78rem !important;
+                line-height: 1.6 !important;
+                padding: 0.75rem !important;
+            }
+
+            /* Ensure code-wrap doesn't overflow */
+            .code-wrap {
+                overflow-x: hidden !important;
+                margin: 0.75rem 0 !important;
+            }
+
+            /* Fix info-block text wrapping */
+            .info-block {
+                flex-wrap: wrap !important;
+                padding: 0.875rem !important;
+            }
+            .info-block-content {
+                word-break: break-word !important;
+                overflow-wrap: break-word !important;
+                font-size: 0.9rem !important;
+                min-width: 0 !important;
+            }
+
+            /* Fix tip-block wrapping */
+            .tip-block {
+                flex-wrap: wrap !important;
+                word-break: break-word !important;
+                overflow-wrap: break-word !important;
+                font-size: 0.88rem !important;
+                padding: 0.875rem 1rem !important;
+            }
+
+            /* Ensure card body text wraps */
+            .card-body {
+                word-break: break-word !important;
+                overflow-wrap: break-word !important;
+            }
+
+            /* Fix hl (highlight) spans from overflowing */
+            .hl {
+                word-break: break-word !important;
+                white-space: normal !important;
+                display: inline-block !important;
+            }
+
+            /* Reduce card padding more */
+            .card {
+                padding: 1rem !important;
+                overflow-x: hidden !important;
+            }
+
+            /* Ensure playground panels don't overflow */
+            .pg-panel {
+                overflow-x: hidden !important;
+            }
+
+            /* Console output wrapping */
+            .console-body {
+                word-break: break-word !important;
+                overflow-wrap: break-word !important;
+            }
+
+            /* Challenge editor wrapping */
+            .challenge-editor {
+                white-space: pre-wrap !important;
+                word-break: break-word !important;
+                font-size: 0.8rem !important;
+            }
+
+            /* Quiz options wrapping */
+            .quiz-option {
+                word-break: break-word !important;
+                overflow-wrap: break-word !important;
+            }
+
+            /* Ensure main content doesn't overflow */
+            .main {
+                overflow-x: hidden !important;
+            }
+
+            /* Fix lesson hero text */
+            .lesson-desc {
+                word-break: break-word !important;
+            }
+
+            /* Test cases wrapping */
+            .test-info {
+                word-break: break-word !important;
+                min-width: 0 !important;
+            }
+            .test-input {
+                word-break: break-word !important;
+                white-space: pre-wrap !important;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 380px) {
+            .code-block {
+                font-size: 0.72rem !important;
+                padding: 0.6rem !important;
+            }
+            .card {
+                padding: 0.875rem !important;
+            }
+            .info-block-content {
+                font-size: 0.85rem !important;
+            }
+            .tip-block {
+                font-size: 0.82rem !important;
+            }
+        }
 </style>
 <base target="_blank">
 <base target="_blank">
